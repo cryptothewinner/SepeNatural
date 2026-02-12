@@ -1,0 +1,25 @@
+# Docker
+postgres_data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+env/
+.env
+
+# Node.js (if applicable)
+node_modules/
+dist/
+
+# System
+.DS_Store
+Thumbs.db
+nul
+
+# IDEs
+.vscode/
+.idea/

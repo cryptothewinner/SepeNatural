@@ -1,0 +1,893 @@
+﻿id,product_id,attribute_key,attribute_value
+1,2,Kategori,"Softgel Gıda Takviyeleri
+,  Gıda Takviyeleri"
+2,2,Marka,Sepe Natural
+3,2,Stok Kodu,000123-A
+4,2,Fiyat,"739,99 TL"
+5,3,Kategori,"Kapsül Gıda Takviyeleri
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+6,3,Marka,Sepe Natural
+7,3,Stok Kodu,000072-A
+8,3,Fiyat,"673,26 TL  + KDV"
+9,4,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+10,4,Marka,Sepe Natural
+11,4,Stok Kodu,000014-A
+12,4,Fiyat,"689,99 TL"
+13,5,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+14,5,Marka,Sepe Natural
+15,5,Stok Kodu,000064-A
+16,5,Fiyat,"663,36 TL  + KDV"
+17,6,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+18,6,Marka,Sepe Natural
+19,6,Stok Kodu,000007-A
+20,6,Fiyat,"559,99 TL"
+21,7,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+22,7,Marka,Sepe Natural
+23,7,Stok Kodu,000021-A
+24,7,Fiyat,"643,55 TL  + KDV"
+25,8,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+26,8,Marka,Sepe Natural
+27,8,Stok Kodu,000035-A
+28,8,Fiyat,"559,99 TL"
+29,9,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+30,9,Marka,Sepe Natural
+31,9,Stok Kodu,000068-A
+32,9,Fiyat,"599,99 TL"
+33,10,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+34,10,Marka,Sepe Natural
+35,10,Stok Kodu,000001-A
+36,10,Fiyat,"879,99 TL"
+37,11,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+38,11,Marka,Sepe Natural
+39,11,Stok Kodu,000008-A
+40,11,Fiyat,"709,99 TL"
+41,12,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+42,12,Marka,Sepe Natural
+43,12,Stok Kodu,000009-A
+44,12,Fiyat,"1.485,14 TL  + KDV"
+45,13,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+46,13,Marka,Sepe Natural
+47,13,Stok Kodu,000010-A
+48,13,Son Kullanım Tarihi,60 Ay
+49,13,Piyasa Fiyatı,2023
+50,13,Fiyat,"1.287,12 TL  + KDV"
+51,14,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+52,14,Marka,Sepe Natural
+53,14,Stok Kodu,000012-A
+54,14,Fiyat,"569,99 TL"
+55,15,Kategori,"250 ml Şampuan
+,  Şampuan"
+56,15,Marka,Sepe Natural
+57,15,Stok Kodu,000415-A
+58,15,Fiyat,"30,00 TL"
+59,16,Kategori,Şampuan
+60,16,Marka,Sepe Natural
+61,16,Stok Kodu,000419-A
+62,16,Fiyat,"25,00 TL"
+63,17,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+64,17,Marka,Sepe Natural
+65,17,Stok Kodu,000085-A
+66,17,Fiyat,"569,99 TL"
+67,18,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+68,18,Marka,Sepe Natural
+69,18,Stok Kodu,000082-A
+70,18,Fiyat,"589,99 TL"
+71,19,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+72,19,Marka,Sepe Natural
+73,19,Stok Kodu,000077-A
+74,19,Fiyat,"559,99 TL"
+75,20,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+76,20,Marka,Sepe Natural
+77,20,Stok Kodu,000075-A
+78,20,Fiyat,"639,99 TL"
+79,21,Kategori,"Gıda Takviyeleri
+,  Kapsül Gıda Takviyeleri"
+80,21,Marka,Sepe Natural
+81,21,Stok Kodu,000063-A
+82,21,Fiyat,"989,99 TL"
+83,22,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+84,22,Marka,Sepe Natural
+85,22,Stok Kodu,000052-A
+86,22,Fiyat,"669,99 TL"
+87,23,Kategori,250 ml Şampuan
+88,23,Marka,Sepe Natural
+89,23,Stok Kodu,000426-A
+90,23,Son Kullanım Tarihi,24 Ay
+91,23,Fiyat,"30,00 TL"
+92,24,Kategori,Şampuan
+93,24,Marka,Sepe Natural
+94,24,Stok Kodu,000413-A
+95,24,Fiyat,"25,00 TL"
+96,25,Kategori,250 ml Şampuan
+97,25,Marka,Sepe Natural
+98,25,Stok Kodu,000427-A
+99,25,Son Kullanım Tarihi,24 Ay
+100,25,Fiyat,"30,00 TL"
+101,26,Kategori,Şampuan
+102,26,Marka,Sepe Natural
+103,26,Stok Kodu,000425-A
+104,26,Fiyat,"30,00 TL"
+105,27,Kategori,250 ml Şampuan
+106,27,Marka,Sepe Natural
+107,27,Stok Kodu,000421-A
+108,27,Son Kullanım Tarihi,24 Ay
+109,27,Fiyat,"30,00 TL"
+110,28,Kategori,250 ml Şampuan
+111,28,Marka,Sepe Natural
+112,28,Stok Kodu,000417-A
+113,28,Son Kullanım Tarihi,24 Ay
+114,28,Fiyat,"30,00 TL"
+115,29,Kategori,250 ml Şampuan
+116,29,Marka,Sepe Natural
+117,29,Stok Kodu,000416-A
+118,29,Son Kullanım Tarihi,24 Ay
+119,29,Fiyat,"30,00 TL"
+120,30,Kategori,250 ml Şampuan
+121,30,Marka,Sepe Natural
+122,30,Stok Kodu,000409-A
+123,30,Son Kullanım Tarihi,24 Ay
+124,30,Fiyat,"30,00 TL"
+125,31,Kategori,"250 ml Şampuan
+,  Arı Sütü & Karışımları
+,  Propolis & Karışımları"
+126,31,Marka,Sepe Natural
+127,31,Stok Kodu,000410-A
+128,31,Son Kullanım Tarihi,24 Ay
+129,31,Fiyat,"30,00 TL"
+130,32,Kategori,250 ml Şampuan
+131,32,Marka,Sepe Natural
+132,32,Stok Kodu,000428-A
+133,32,Son Kullanım Tarihi,24 Ay
+134,32,Fiyat,"30,00 TL"
+135,33,Kategori,250 ml Şampuan
+136,33,Marka,Sepe Natural
+137,33,Stok Kodu,000411-A
+138,33,Son Kullanım Tarihi,24 Ay
+139,33,Fiyat,"30,00 TL"
+140,34,Kategori,El ve Vücut Bakım Kremleri
+141,34,Marka,Sepe Natural
+142,34,Stok Kodu,000449-A
+143,34,Son Kullanım Tarihi,24 Ay
+144,34,Fiyat,"30,00 TL"
+145,35,Kategori,"400 ml Şampuan
+,  Şampuan"
+146,35,Marka,Sepe Natural
+147,35,Stok Kodu,000390-A
+148,35,Fiyat,"50,00 TL"
+149,36,Kategori,400 ml Şampuan
+150,36,Marka,Sepe Natural
+151,36,Stok Kodu,000389-A
+152,36,Son Kullanım Tarihi,24 Ay
+153,36,Fiyat,"50,00 TL"
+154,37,Kategori,"400 ml Şampuan
+,  Arı Sütü & Karışımları
+,  Propolis & Karışımları"
+155,37,Marka,Sepe Natural
+156,37,Stok Kodu,000388-A
+157,37,Son Kullanım Tarihi,24 Ay
+158,37,Fiyat,"50,00 TL"
+159,38,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+160,38,Marka,Sepe Natural
+161,38,Stok Kodu,000314-A
+162,38,Fiyat,"222,21 TL  + KDV"
+163,39,Kategori,400 ml Şampuan
+164,39,Marka,Sepe Natural
+165,39,Stok Kodu,000387-A
+166,39,Son Kullanım Tarihi,24 Ay
+167,39,Fiyat,"50,00 TL"
+168,40,Kategori,400 ml Şampuan
+169,40,Marka,Sepe Natural
+170,40,Stok Kodu,000394-A
+171,40,Son Kullanım Tarihi,24 Ay
+172,40,Fiyat,"50,00 TL"
+173,41,Kategori,400 ml Şampuan
+174,41,Marka,Sepe Natural
+175,41,Stok Kodu,000395-A
+176,41,Son Kullanım Tarihi,24 Ay
+177,41,Fiyat,"50,00 TL"
+178,42,Kategori,400 ml Şampuan
+179,42,Marka,Sepe Natural
+180,42,Stok Kodu,000403-A
+181,42,Son Kullanım Tarihi,24 Ay
+182,42,Fiyat,"50,00 TL"
+183,43,Kategori,400 ml Şampuan
+184,43,Marka,Sepe Natural
+185,43,Stok Kodu,000405-A
+186,43,Son Kullanım Tarihi,24 Ay
+187,43,Fiyat,"50,00 TL"
+188,44,Kategori,400 ml Şampuan
+189,44,Marka,Sepe Natural
+190,44,Stok Kodu,000386-A
+191,44,Son Kullanım Tarihi,24 Ay
+192,44,Fiyat,"50,00 TL"
+193,45,Kategori,400 ml Şampuan
+194,45,Marka,Sepe Natural
+195,45,Stok Kodu,000400-A
+196,45,Son Kullanım Tarihi,24 Ay
+197,45,Fiyat,"50,00 TL"
+198,46,Kategori,Bal Çeşitleri
+199,46,Marka,Sepe Natural
+200,46,Stok Kodu,MGZ0177
+201,46,Son Kullanım Tarihi,24 Ay
+202,46,Fiyat,"1.485,14 TL  + KDV"
+203,47,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+204,47,Marka,Sepe Natural
+205,47,Stok Kodu,000315-A
+206,47,Fiyat,"333,32 TL  + KDV"
+207,48,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  25 ml"
+208,48,Marka,Sepe Natural
+209,48,Stok Kodu,000319-A
+210,48,Fiyat,"157,40 TL  + KDV"
+211,49,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+212,49,Marka,Sepe Natural
+213,49,Stok Kodu,000330-A
+214,49,Fiyat,"185,18 TL  + KDV"
+215,50,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+216,50,Marka,Sepe Natural
+217,50,Stok Kodu,000331-A
+218,50,Fiyat,"138,88 TL  + KDV"
+219,51,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+220,51,Marka,Sepe Natural
+221,51,Stok Kodu,000335-A
+222,51,Fiyat,"166,66 TL  + KDV"
+223,52,Kategori,"Arı Sütü & Karışımları
+,  Polen & Karışımları
+,  Propolis & Karışımları
+,  Arı Ürünleri & Karışımlar"
+224,52,Marka,Sepe Natural
+225,52,Stok Kodu,000163-A
+226,52,Fiyat,"416,66 TL  + KDV"
+227,53,Kategori,Duş Jeli
+228,53,Marka,Sepe Natural
+229,53,Stok Kodu,000440-A
+230,53,Son Kullanım Tarihi,24 Ay
+231,53,Fiyat,"30,00 TL"
+232,54,Kategori,Duş Jeli
+233,54,Marka,Sepe Natural
+234,54,Stok Kodu,000445-A
+235,54,Son Kullanım Tarihi,24 Ay
+236,54,Fiyat,"30,00 TL"
+237,55,Kategori,Duş Jeli
+238,55,Marka,Sepe Natural
+239,55,Stok Kodu,000441-A
+240,55,Son Kullanım Tarihi,24 Ay
+241,55,Fiyat,"30,00 TL"
+242,56,Kategori,Duş Jeli
+243,56,Marka,Sepe Natural
+244,56,Stok Kodu,000443-A
+245,56,Son Kullanım Tarihi,24 Ay
+246,56,Fiyat,"30,00 TL"
+247,57,Kategori,Duş Jeli
+248,57,Marka,Sepe Natural
+249,57,Stok Kodu,000438-A
+250,57,Son Kullanım Tarihi,24 Ay
+251,57,Fiyat,"30,00 TL"
+252,58,Kategori,Duş Jeli
+253,58,Marka,Sepe Natural
+254,58,Stok Kodu,000436-A
+255,58,Son Kullanım Tarihi,24 Ay
+256,58,Fiyat,"30,00 TL"
+257,59,Kategori,Duş Jeli
+258,59,Marka,Sepe Natural
+259,59,Stok Kodu,000444-A
+260,59,Son Kullanım Tarihi,24 Ay
+261,59,Fiyat,"30,00 TL"
+262,60,Kategori,Sıvı Sabun
+263,60,Marka,Sepe Natural
+264,60,Stok Kodu,000434-A
+265,60,Son Kullanım Tarihi,24 Ay
+266,60,Fiyat,"30,00 TL"
+267,61,Kategori,Vücut Nemlendirici Losyon
+268,61,Marka,Sepe Natural
+269,61,Stok Kodu,000447-A
+270,61,Son Kullanım Tarihi,24 Ay
+271,61,Fiyat,"25,00 TL"
+272,62,Kategori,Vücut Nemlendirici Losyon
+273,62,Marka,Sepe Natural
+274,62,Stok Kodu,000446-A
+275,62,Son Kullanım Tarihi,24 Ay
+276,62,Fiyat,"25,00 TL"
+277,63,Kategori,"Bal Çeşitleri
+,  Arı Ürünleri & Karışımlar"
+278,63,Marka,Sepe Natural
+279,63,Stok Kodu,000176-A
+280,63,Fiyat,"792,07 TL  + KDV"
+281,64,Kategori,"Arı Ürünleri & Karışımlar
+,  Bal Çeşitleri"
+282,64,Marka,Sepe Natural
+283,64,Stok Kodu,000180-A
+284,64,Fiyat,"445,53 TL  + KDV"
+285,65,Kategori,"Damla Gıda Takviyeleri
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+286,65,Marka,Sepe Natural
+287,65,Stok Kodu,000187-A
+288,65,Fiyat,"419,99 TL"
+289,66,Kategori,"Polen & Karışımları
+,  Gıda Takviyeleri"
+290,66,Marka,Sepe Natural
+291,66,Stok Kodu,000167-A
+292,66,Fiyat,"247,51 TL  + KDV"
+293,67,Kategori,"Gıda Takviyeleri
+,  Polen & Karışımları"
+294,67,Marka,Sepe Natural
+295,67,Stok Kodu,000169-A
+296,67,Fiyat,"247,51 TL  + KDV"
+297,68,Kategori,"Sabit Yağlar
+,  250 ml
+,  Bitkisel Yağlar"
+298,68,Marka,Sepe Natural
+299,68,Stok Kodu,000383-A
+300,68,Fiyat,"203,69 TL  + KDV"
+301,69,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml"
+302,69,Marka,Sepe Natural
+303,69,Stok Kodu,000342-A
+304,69,Fiyat,"148,14 TL  + KDV"
+305,70,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml
+,  250 ml"
+306,70,Marka,Sepe Natural
+307,70,Stok Kodu,000340-A
+308,70,Fiyat,"231,47 TL  + KDV"
+309,71,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml"
+310,71,Marka,Sepe Natural
+311,71,Stok Kodu,000347-A
+312,71,Fiyat,"175,92 TL  + KDV"
+313,72,Kategori,Bitkisel Yağlar
+314,72,Marka,Sepe Natural
+315,72,Stok Kodu,000353-A
+316,72,Fiyat,"209,99 TL"
+317,73,Kategori,Bitkisel Yağlar
+318,73,Marka,Sepe Natural
+319,73,Stok Kodu,000350-A
+320,73,Fiyat,"185,18 TL  + KDV"
+321,74,Kategori,Bitkisel Yağlar
+322,74,Marka,Sepe Natural
+323,74,Stok Kodu,000352-A
+324,74,Fiyat,"212,95 TL  + KDV"
+325,75,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml
+,  250 ml
+,  1000 ml"
+326,75,Marka,Sepe Natural
+327,75,Stok Kodu,000354-A
+328,75,Fiyat,"249,99 TL"
+329,76,Kategori,Bitkisel Yağlar
+330,76,Marka,Sepe Natural
+331,76,Stok Kodu,000355-A
+332,76,Fiyat,"185,18 TL  + KDV"
+333,77,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml
+,  250 ml"
+334,77,Marka,Sepe Natural
+335,77,Stok Kodu,000341-A
+336,77,Fiyat,"240,73 TL  + KDV"
+337,78,Kategori,Bitkisel Yağlar
+338,78,Marka,Sepe Natural
+339,78,Stok Kodu,000357-A
+340,78,Fiyat,"504,94 TL  + KDV"
+341,79,Kategori,Bitkisel Yağlar
+342,79,Marka,Sepe Natural
+343,79,Stok Kodu,000359-A
+344,79,Fiyat,"324,06 TL  + KDV"
+345,80,Kategori,"Bitkisel Yağlar
+,  200 ml"
+346,80,Marka,Sepe Natural
+347,80,Stok Kodu,000360-A
+348,80,Fiyat,"465,34 TL  + KDV"
+349,81,Kategori,Bitkisel Yağlar
+350,81,Marka,Sepe Natural
+351,81,Stok Kodu,000361-A
+352,81,Fiyat,"389,99 TL"
+353,82,Kategori,Bitkisel Yağlar
+354,82,Marka,Sepe Natural
+355,82,Stok Kodu,000362-A
+356,82,Fiyat,"379,62 TL  + KDV"
+357,83,Kategori,Bitkisel Yağlar
+358,83,Marka,Sepe Natural
+359,83,Stok Kodu,000356-A
+360,83,Fiyat,"277,77 TL  + KDV"
+361,84,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+362,84,Marka,Sepe Natural
+363,84,Stok Kodu,000334-A
+364,84,Fiyat,"194,44 TL  + KDV"
+365,85,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+366,85,Marka,Sepe Natural
+367,85,Stok Kodu,000332-A
+368,85,Fiyat,"249,99 TL  + KDV"
+369,86,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+370,86,Marka,Sepe Natural
+371,86,Stok Kodu,000325-A
+372,86,Fiyat,"166,66 TL  + KDV"
+373,87,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+374,87,Marka,Sepe Natural
+375,87,Stok Kodu,000326-A
+376,87,Fiyat,"203,69 TL  + KDV"
+377,88,Kategori,"Bitkisel Yağlar
+,  25 ml"
+378,88,Marka,Sepe Natural
+379,88,Stok Kodu,000310-A
+380,88,Fiyat,"203,69 TL  + KDV"
+381,89,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  25 ml"
+382,89,Marka,Sepe Natural
+383,89,Stok Kodu,000309-A
+384,89,Fiyat,"277,77 TL  + KDV"
+385,90,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  25 ml"
+386,90,Marka,Sepe Natural
+387,90,Stok Kodu,000320-A
+388,90,Fiyat,"166,66 TL  + KDV"
+389,91,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  25 ml"
+390,91,Marka,Sepe Natural
+391,91,Stok Kodu,000311-A
+392,91,Fiyat,"194,44 TL  + KDV"
+393,92,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  25 ml"
+394,92,Marka,Sepe Natural
+395,92,Stok Kodu,000312-A
+396,92,Fiyat,"185,18 TL  + KDV"
+397,93,Kategori,"Bitkisel Yağlar
+,  Maserasyon Yağlar
+,  25 ml"
+398,93,Marka,Sepe Natural
+399,93,Stok Kodu,000336-A
+400,93,Fiyat,"152,78 TL  + KDV"
+401,94,Kategori,"Bitkisel Yağlar
+,  Uçucu Yağlar
+,  50 ml"
+402,94,Marka,Sepe Natural
+403,94,Stok Kodu,000343-A
+404,94,Fiyat,"227,71 TL  + KDV"
+405,95,Kategori,"Likit Gıda Takviyeleri
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+406,95,Marka,Sepe Natural
+407,95,Stok Kodu,000192-A
+408,95,Fiyat,"509,99 TL"
+409,96,Kategori,"Likit Gıda Takviyeleri
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+410,96,Marka,Sepe Natural
+411,96,Stok Kodu,000196-A
+412,96,Fiyat,"629,99 TL"
+413,97,Kategori,"Likit Gıda Takviyeleri
+,  Arı Sütü & Karışımları
+,  Gıda Takviyeleri"
+414,97,Marka,Sepe Natural
+415,97,Stok Kodu,000197-A
+416,97,Fiyat,"509,99 TL"
+417,98,Kategori,"Likit Gıda Takviyeleri
+,  Gıda Takviyeleri"
+418,98,Marka,Sepe Natural
+419,98,Stok Kodu,000195-A
+420,98,Fiyat,"699,99 TL"
+421,99,Kategori,"Bal Çeşitleri
+,  Arı Ürünleri & Karışımlar"
+422,99,Marka,Sepe Natural
+423,99,Stok Kodu,MGZ0176
+424,99,Son Kullanım Tarihi,24 Ay
+425,99,Fiyat,"841,57 TL  + KDV"
+426,100,Kategori,"Bal Çeşitleri
+,  Arı Ürünleri & Karışımlar"
+427,100,Marka,Sepe Natural
+428,100,Stok Kodu,000175-A
+429,100,Fiyat,"297,02 TL  + KDV"
+430,101,Kategori,"Arı Ürünleri & Karışımlar
+,  Bal Çeşitleri"
+431,101,Marka,Sepe Natural
+432,101,Stok Kodu,000179-A
+433,101,Fiyat,"297,02 TL  + KDV"
+434,102,Kategori,"Arı Sütü & Karışımları
+,  Sepe Natural"
+435,102,Marka,Sepe Natural
+436,102,Stok Kodu,000000-A
+437,102,Fiyat,"1.089,10 TL  + KDV"
+438,103,Kategori,Yüz Maskesi
+439,103,Marka,Sepe Natural
+440,103,Stok Kodu,000470-A
+441,103,Son Kullanım Tarihi,24 Ay
+442,103,Fiyat,"75,00 TL"
+443,104,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+444,104,Marka,Sepe Natural
+445,104,Stok Kodu,000109-A
+446,104,Fiyat,"709,99 TL"
+447,105,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+448,105,Marka,Sepe Natural
+449,105,Stok Kodu,000108-A
+450,105,Fiyat,"1.029,99 TL"
+451,106,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+452,106,Marka,Genel
+453,106,Stok Kodu,000104-A
+454,106,Fiyat,"693,06 TL  + KDV"
+455,107,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+456,107,Marka,Sepe Natural
+457,107,Stok Kodu,000110-A
+458,107,Fiyat,"742,56 TL  + KDV"
+459,108,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  Sepe Natural"
+460,108,Marka,Sepe Natural
+461,108,Stok Kodu,000026-A
+462,108,Fiyat,"759,99 TL"
+463,109,Kategori,"Likit Gıda Takviyeleri
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+464,109,Marka,Sepe Natural
+465,109,Stok Kodu,000188-A
+466,109,Fiyat,"589,99 TL"
+467,110,Kategori,"Bitkisel Yağlar
+,  200 ml"
+468,110,Marka,Sepe Natural
+469,110,Stok Kodu,000358-A
+470,110,Fiyat,"475,24 TL  + KDV"
+471,111,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  50 ml"
+472,111,Marka,Sepe Natural
+473,111,Stok Kodu,000349-A
+474,111,Fiyat,"212,95 TL  + KDV"
+475,112,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  25 ml"
+476,112,Marka,Sepe Natural
+477,112,Stok Kodu,000308-A
+478,112,Fiyat,"157,40 TL  + KDV"
+479,113,Kategori,"Softgel Gıda Takviyeleri
+,  Gıda Takviyeleri"
+480,113,Marka,Sepe Natural
+481,113,Stok Kodu,000117-A
+482,113,Fiyat,"739,99 TL"
+483,114,Kategori,"Softgel Gıda Takviyeleri
+,  Gıda Takviyeleri"
+484,114,Marka,Sepe Natural
+485,114,Stok Kodu,000118-A
+486,114,Fiyat,"1.049,99 TL"
+487,115,Kategori,"Softgel Gıda Takviyeleri
+,  Gıda Takviyeleri"
+488,115,Marka,Sepe Natural
+489,115,Stok Kodu,000120-A
+490,115,Fiyat,"949,99 TL"
+491,116,Kategori,"Softgel Gıda Takviyeleri
+,  Gıda Takviyeleri"
+492,116,Marka,Sepe Natural
+493,116,Stok Kodu,000121-A
+494,116,Fiyat,"1.239,99 TL"
+495,117,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+496,117,Marka,Sepe Natural
+497,117,Stok Kodu,000115-A
+498,117,Fiyat,"398,14 TL  + KDV"
+499,118,Kategori,"Bitkisel Yağlar
+,  Sabit Yağlar
+,  170 ml"
+500,118,Marka,Sepe Natural
+501,118,Stok Kodu,000375-A
+502,118,Fiyat,"239,99 TL"
+503,119,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+504,119,Marka,Sepe Natural
+505,119,Stok Kodu,000092-A
+506,119,Fiyat,"439,99 TL"
+507,120,Kategori,"50 gram
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+508,120,Marka,Sepe Natural
+509,120,Stok Kodu,000139-A
+510,120,Fiyat,"459,99 TL"
+511,121,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+512,121,Marka,Sepe Natural
+513,121,Stok Kodu,000098-A
+514,121,Fiyat,"489,99 TL"
+515,122,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+516,122,Marka,Sepe Natural
+517,122,Stok Kodu,000096-A
+518,122,Fiyat,"449,99 TL"
+519,123,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+520,123,Marka,Sepe Natural
+521,123,Stok Kodu,000093-A
+522,123,Fiyat,"489,99 TL"
+523,124,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri"
+524,124,Marka,Sepe Natural
+525,124,Stok Kodu,000097-A
+526,124,Fiyat,"425,92 TL  + KDV"
+527,125,Kategori,Gıda Takviyeleri
+528,125,Marka,Sepe Natural
+529,125,Stok Kodu,000303-A
+530,125,Fiyat,"405,93 TL  + KDV"
+531,126,Kategori,Kozmetik Ürünler
+532,126,Marka,Sepe Natural
+533,126,Stok Kodu,000305-A
+534,126,Fiyat,"589,99 TL"
+535,127,Kategori,Gıda Takviyeleri
+536,127,Marka,Sepe Natural
+537,127,Stok Kodu,000306-A
+538,127,Fiyat,"419,99 TL"
+539,128,Kategori,"50 gram
+,  Gıda Takviyeleri"
+540,128,Marka,Sepe Natural
+541,128,Stok Kodu,000128-A
+542,128,Fiyat,"459,99 TL"
+543,129,Kategori,"Toz & Ekstraktlar
+,  100 gram
+,  Gıda Takviyeleri"
+544,129,Marka,Sepe Natural
+545,129,Stok Kodu,000155-A
+546,129,Fiyat,"739,99 TL"
+547,130,Kategori,"50 gram
+,  Gıda Takviyeleri"
+548,130,Marka,Sepe Natural
+549,130,Stok Kodu,000130-A
+550,130,Fiyat,"389,99 TL"
+551,131,Kategori,"50 gram
+,  Gıda Takviyeleri"
+552,131,Marka,Sepe Natural
+553,131,Stok Kodu,000135-A
+554,131,Fiyat,"425,92 TL  + KDV"
+555,132,Kategori,"100 gram
+,  Gıda Takviyeleri"
+556,132,Marka,Sepe Natural
+557,132,Stok Kodu,000151-A
+558,132,Fiyat,"739,99 TL"
+559,133,Kategori,"100 gram
+,  Propolis & Karışımları
+,  Gıda Takviyeleri"
+560,133,Marka,Sepe Natural
+561,133,Stok Kodu,000153-A
+562,133,Fiyat,"739,99 TL"
+563,134,Kategori,"100 gram
+,  Gıda Takviyeleri"
+564,134,Marka,Sepe Natural
+565,134,Stok Kodu,000143-A
+566,134,Fiyat,"959,99 TL"
+567,135,Kategori,"50 gram
+,  Gıda Takviyeleri"
+568,135,Marka,Sepe Natural
+569,135,Stok Kodu,000141-A
+570,135,Fiyat,"569,99 TL"
+571,136,Kategori,"50 gram
+,  Gıda Takviyeleri"
+572,136,Marka,Sepe Natural
+573,136,Stok Kodu,000137-A
+574,136,Fiyat,"329,99 TL"
+575,137,Kategori,"100 gram
+,  Gıda Takviyeleri"
+576,137,Marka,Sepe Natural
+577,137,Stok Kodu,000590-A
+578,137,Fiyat,"489,99 TL"
+579,138,Kategori,"100 gram
+,  Gıda Takviyeleri"
+580,138,Marka,Sepe Natural
+581,138,Stok Kodu,000157-A
+582,138,Fiyat,"579,99 TL"
+583,139,Kategori,"100 gram
+,  Gıda Takviyeleri"
+584,139,Marka,Sepe Natural
+585,139,Stok Kodu,000147-A
+586,139,Fiyat,"1.729,99 TL"
+587,140,Kategori,"50 gram
+,  Gıda Takviyeleri"
+588,140,Stok Kodu,000134-A
+589,140,Fiyat,"929,99 TL"
+590,141,Kategori,"50 gram
+,  Gıda Takviyeleri"
+591,141,Stok Kodu,000132-A
+592,141,Fiyat,"229,99 TL"
+593,142,Kategori,"100 gram
+,  Gıda Takviyeleri"
+594,142,Marka,Sepe Natural
+595,142,Stok Kodu,000150-A
+596,142,Fiyat,"269,99 TL"
+597,143,Kategori,"50 gram
+,  Gıda Takviyeleri"
+598,143,Marka,Sepe Natural
+599,143,Stok Kodu,000136-A
+600,143,Fiyat,"459,00 TL"
+601,144,Kategori,"100 gram
+,  Gıda Takviyeleri"
+602,144,Marka,Sepe Natural
+603,144,Stok Kodu,000146-A
+604,144,Fiyat,"729,00 TL"
+605,145,Kategori,"50 gram
+,  Gıda Takviyeleri"
+606,145,Stok Kodu,000129-A
+607,145,Fiyat,"289,99 TL"
+608,146,Kategori,"100 gram
+,  Gıda Takviyeleri"
+609,146,Marka,Sepe Natural
+610,146,Stok Kodu,000145-A
+611,146,Fiyat,"439,99 TL"
+612,147,Kategori,"50 gram
+,  Gıda Takviyeleri"
+613,147,Marka,Sepe Natural
+614,147,Stok Kodu,000131-A
+615,147,Fiyat,"439,99 TL"
+616,148,Kategori,"50 gram
+,  Gıda Takviyeleri"
+617,148,Stok Kodu,000133-A
+618,148,Fiyat,"459,99 TL"
+619,149,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  NOP"
+620,149,Marka,Sepe Natural
+621,149,Stok Kodu,000101-A
+622,149,Fiyat,"279,99 TL"
+623,150,Kategori,"Gıda Takviyeleri
+,  Toz & Ekstraktlar
+,  500 gram"
+624,150,Marka,Sepe Natural
+625,150,Stok Kodu,000592-A
+626,150,Fiyat,"1.907,40 TL  + KDV"
+627,151,Kategori,"Gıda Takviyeleri
+,  Toz & Ekstraktlar
+,  1000 gram"
+628,151,Marka,Sepe Natural
+629,151,Stok Kodu,000593-A
+630,151,Fiyat,"3.657,40 TL  + KDV"
+631,152,Kategori,"50 gram
+,  Gıda Takviyeleri"
+632,152,Marka,Sepe Natural
+633,152,Stok Kodu,000142-A
+634,152,Fiyat,"259,99 TL"
+635,170,Kategori,Gıda Takviyeleri
+636,170,Marka,Sepe Natural
+637,170,Stok Kodu,000604-A
+638,170,Fiyat,"319,99 TL"
+639,153,Kategori,"Kapsül Gıda Takviyeleri
+,  Gıda Takviyeleri
+,  NOP"
+640,153,Marka,Sepe Natural
+641,153,Stok Kodu,000105-A
+642,153,Fiyat,"659,99 TL"
+643,154,Kategori,"Gıda Takviyeleri
+,  1000 gram"
+644,154,Marka,Sepe Natural
+645,154,Stok Kodu,000910-A
+646,154,Fiyat,"459,99 TL"
+647,155,Kategori,"100 gram
+,  Gıda Takviyeleri"
+648,155,Marka,Sepe Natural
+649,155,Stok Kodu,000149-A
+650,155,Fiyat,"739,99 TL"
+651,156,Kategori,"100 gram
+,  Gıda Takviyeleri"
+652,156,Marka,Sepe Natural
+653,156,Stok Kodu,000152-A
+654,156,Fiyat,"379,99 TL"
+655,157,Kategori,"50 gram
+,  Gıda Takviyeleri"
+656,157,Marka,Sepe Natural
+657,157,Stok Kodu,000140-A
+658,157,Fiyat,"349,99 TL"
+659,158,Kategori,"Gıda Takviyeleri
+,  100 gram"
+660,158,Marka,Sepe Natural
+661,158,Stok Kodu,000144-A
+662,158,Fiyat,"629,00 TL"
+663,159,Kategori,"Gıda Takviyeleri
+,  50 gram"
+664,159,Stok Kodu,000138-A
+665,159,Fiyat,"399,00 TL"
+666,160,Kategori,"Gıda Takviyeleri
+,  100 gram"
+667,160,Marka,Sepe Natural
+668,160,Stok Kodu,000148-A
+669,160,Fiyat,"519,99 TL"
+670,171,Kategori,"NOP
+,  Gıda Takviyeleri"
+671,171,Marka,Sepe Natural
+672,171,Stok Kodu,000934-A
+673,171,Fiyat,"544,54 TL  + KDV"
+674,1,Kategori,"NOP
+,  Gıda Takviyeleri
+,  Kapsül Gıda Takviyeleri"
+675,1,Marka,Sepe Natural
+676,1,Stok Kodu,000935-A
+677,1,Fiyat,"782,17 TL  + KDV"
+678,161,Kategori,"Tablet Gıda Takviyeleri
+,  Gıda Takviyeleri"
+679,161,Marka,Sepe Natural
+680,161,Stok Kodu,000633-A
+681,161,Fiyat,"559,99 TL"
+682,162,Kategori,"Sepe Natural
+,  Kapsül Gıda Takviyeleri"
+683,162,Marka,Sepe Natural
+684,162,Stok Kodu,000632-A
+685,162,Fiyat,"649,99 TL"
+686,163,Kategori,"Gıda Takviyeleri
+,  SETLİ ÜRÜNLER"
+687,163,Marka,Sepe Natural
+688,163,Stok Kodu,KP-SET001
+689,163,Fiyat,"1.712,86 TL  + KDV"
+690,164,Kategori,"Gıda Takviyeleri
+,  SETLİ ÜRÜNLER"
+691,164,Marka,Sepe Natural
+692,164,Stok Kodu,KP-SET002
+693,164,Fiyat,"1.504,94 TL  + KDV"
+694,165,Kategori,"Gıda Takviyeleri
+,  SETLİ ÜRÜNLER"
+695,165,Marka,Sepe Natural
+696,165,Stok Kodu,KP-SET003
+697,165,Fiyat,"1.673,26 TL  + KDV"
+698,166,Kategori,"Gıda Takviyeleri
+,  SETLİ ÜRÜNLER"
+699,166,Marka,Sepe Natural
+700,166,Stok Kodu,KP-SET004
+701,166,Fiyat,"2.346,52 TL  + KDV"
+702,167,Kategori,"Gıda Takviyeleri
+,  SETLİ ÜRÜNLER"
+703,167,Marka,Sepe Natural
+704,167,Stok Kodu,KP-SET007
+705,167,Fiyat,"1.128,70 TL  + KDV"
+706,168,Kategori,Arı Ürünleri & Karışımlar
+707,168,Marka,Sepe Natural
+708,168,Stok Kodu,000189-A
+709,168,Fiyat,"465,34 TL  + KDV"
+710,169,Kategori,Gıda Takviyeleri
+711,169,Marka,Sepe Natural
+712,169,Stok Kodu,000939-A
+713,169,Fiyat,"643,55 TL  + KDV"

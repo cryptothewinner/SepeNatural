@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepenatural — İlaç Üretim & Maliyet Yönetim Sistemi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        sepe: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        bark: {
+                            50: '#faf8f5',
+                            100: '#f3efe8',
+                            200: '#e8e0d4',
+                            300: '#d4c8b5',
+                            400: '#bba991',
+                            500: '#a69177',
+                            600: '#937d66',
+                            700: '#7b6755',
+                            800: '#655548',
+                            900: '#53463d',
+                            950: '#2c2420',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #faf9f7;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        /* Organic scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d4c8b5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a69177; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
+        .animate-slideIn { animation: slideIn 0.3s ease-out forwards; }
+        .animate-scaleIn { animation: scaleIn 0.3s ease-out forwards; }
+
+        /* Stagger children */
+        .stagger > *:nth-child(1) { animation-delay: 0ms; }
+        .stagger > *:nth-child(2) { animation-delay: 50ms; }
+        .stagger > *:nth-child(3) { animation-delay: 100ms; }
+        .stagger > *:nth-child(4) { animation-delay: 150ms; }
+        .stagger > *:nth-child(5) { animation-delay: 200ms; }
+        .stagger > *:nth-child(6) { animation-delay: 250ms; }
+        .stagger > *:nth-child(7) { animation-delay: 300ms; }
+        .stagger > *:nth-child(8) { animation-delay: 350ms; }
+
+        /* Botanical texture overlay */
+        .texture-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23166534' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(255,255,255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(22, 101, 52, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+        .glass-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+            border-color: rgba(22, 101, 52, 0.15);
+        }
+
+        /* Sidebar leaf accent */
+        .leaf-accent {
+            position: relative;
+        }
+        .leaf-accent::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 60%;
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Number input clean */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        /* Table row hover */
+        .table-row-hover:hover {
+            background: linear-gradient(90deg, rgba(22,163,74,0.04) 0%, rgba(22,163,74,0.01) 100%);
+        }
+    </style>
+</head>
+
+<body class="texture-overlay">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+        // ═══════════════════════════════════════════════════════
+        // DATA LAYER — Sepenatural Ürün & Malzeme Verileri
+        // ═══════════════════════════════════════════════════════
+
+        const USD_KUR_DEFAULT = 44;
+
+        // Hammadde veritabanı (Netsys'den çekilecek yapı)
+        // currentStock: mevcut stok (KG/ADT), reorderPoint: yeniden sipariş eşiği
+        const rawMaterials = [
+            { id: "RM-KARA-MURVER-EKSTRE", name: "Kara Murver Ekstresi", unit: "KG", priceUsd: 50.4, category: "EKSTRE", supplier: "Naturex GmbH", leadTime: 14, minOrder: 5, currentStock: 18, reorderPoint: 10 },
+            { id: "RM-PROPOLIS-EKSTRESI", name: "Propolis Ekstresi", unit: "KG", priceUsd: 45.6, category: "EKSTRE", supplier: "ApiPharm Ltd", leadTime: 10, minOrder: 3, currentStock: 12, reorderPoint: 8 },
+            { id: "RM-TURUNC-EKSTRESI", name: "Turunç Ekstresi", unit: "KG", priceUsd: 84, category: "EKSTRE", supplier: "CitrusBio Inc", leadTime: 21, minOrder: 2, currentStock: 4, reorderPoint: 5 },
+            { id: "RM-MEYAN-KOKU-EKSTRES", name: "Meyan Kökü Ekstresi", unit: "KG", priceUsd: 45.6, category: "EKSTRE", supplier: "HerbalSource", leadTime: 7, minOrder: 5, currentStock: 25, reorderPoint: 10 },
+            { id: "RM-EKINEZYA-EKSTRESI", name: "Ekinezya Ekstresi", unit: "KG", priceUsd: 84, category: "EKSTRE", supplier: "FloraExtract", leadTime: 14, minOrder: 2, currentStock: 7, reorderPoint: 6 },
+            { id: "RM-VITAMIN-C", name: "Vitamin C (Askorbik Asit)", unit: "KG", priceUsd: 18.5, category: "VİTAMİN", supplier: "DSM Nutritional", leadTime: 7, minOrder: 10, currentStock: 45, reorderPoint: 15 },
+            { id: "RM-ZERDEÇAL-EKSTRE", name: "Zerdeçal Ekstresi", unit: "KG", priceUsd: 62, category: "EKSTRE", supplier: "SpicePharm", leadTime: 14, minOrder: 3, currentStock: 9, reorderPoint: 6 },
+            { id: "RM-KAPSUL-KILIF-0", name: "Kapsül Kılıfı (Boş, Jelatin)", unit: "ADT", priceUsd: 0.008, category: "AMBALAJ", supplier: "CapsulTech", leadTime: 5, minOrder: 50000, currentStock: 250000, reorderPoint: 100000 },
+            { id: "RM-KUTU-60", name: "Kutu 60'lık", unit: "ADT", priceUsd: 0.12, category: "AMBALAJ", supplier: "PharmaBox", leadTime: 3, minOrder: 1000, currentStock: 8000, reorderPoint: 3000 },
+            { id: "RM-KUTU-90", name: "Kutu 90'lık", unit: "ADT", priceUsd: 0.15, category: "AMBALAJ", supplier: "PharmaBox", leadTime: 3, minOrder: 1000, currentStock: 12000, reorderPoint: 4000 },
+            { id: "RM-ETIKET", name: "Etiket (Baskılı)", unit: "ADT", priceUsd: 0.03, category: "AMBALAJ", supplier: "LabelPrint", leadTime: 5, minOrder: 5000, currentStock: 30000, reorderPoint: 10000 },
+            { id: "RM-CHITOSAN", name: "Chitosan Extract", unit: "KG", priceUsd: 72, category: "EKSTRE", supplier: "BioMarine Co", leadTime: 21, minOrder: 2, currentStock: 3, reorderPoint: 4 },
+            { id: "RM-KOLAJEN", name: "Hidrolize Kolajen", unit: "KG", priceUsd: 38, category: "PROTEİN", supplier: "CollagenPro", leadTime: 10, minOrder: 5, currentStock: 20, reorderPoint: 8 },
+            { id: "RM-BIBERIYE-EKSTRE", name: "Biberiye Ekstresi", unit: "KG", priceUsd: 55, category: "EKSTRE", supplier: "MedHerb", leadTime: 14, minOrder: 2, currentStock: 6, reorderPoint: 5 },
+            { id: "RM-OMEGA3", name: "Omega-3 Balık Yağı", unit: "KG", priceUsd: 28, category: "YAĞ", supplier: "NordicOils", leadTime: 14, minOrder: 10, currentStock: 30, reorderPoint: 12 },
+        ];
+
+        // Ürün Reçeteleri (BOM - Bill of Materials)
+        const products = [
+            {
+                id: "P-JFY-001", stockNo: "000632-A", name: "Just 4 You Kompleks", form: "Kapsül",
+                barcode: "8680462001153", cpPerBox: 90, mgPerCapsule: 900, description: "Bağışıklık destek kompleksi",
+                category: "TAKVİYE", status: "active",
+                bom: [
+                    { rmId: "RM-KARA-MURVER-EKSTRE", seq: 10, qtyMgPerCapsule: 270 },
+                    { rmId: "RM-PROPOLIS-EKSTRESI", seq: 20, qtyMgPerCapsule: 125 },
+                    { rmId: "RM-TURUNC-EKSTRESI", seq: 30, qtyMgPerCapsule: 125 },
+                    { rmId: "RM-MEYAN-KOKU-EKSTRES", seq: 40, qtyMgPerCapsule: 125 },
+                    { rmId: "RM-EKINEZYA-EKSTRESI", seq: 50, qtyMgPerCapsule: 125 },
+                ]
+            },
+            {
+                id: "P-CHI-001", stockNo: "000014-A", name: "Chitosan Kitosan Extract", form: "Kapsül",
+                barcode: "8680462000156", cpPerBox: 90, mgPerCapsule: 330, description: "Kilo kontrol desteği",
+                category: "TAKVİYE", status: "active",
+                bom: [
+                    { rmId: "RM-CHITOSAN", seq: 10, qtyMgPerCapsule: 330 },
+                ]
+            },
+            {
+                id: "P-VIT-001", stockNo: "000045-A", name: "Vitamin C Plus", form: "Kapsül",
+                barcode: "8680462001160", cpPerBox: 60, mgPerCapsule: 500, description: "Güçlendirilmiş C vitamini",
+                category: "VİTAMİN", status: "active",
+                bom: [
+                    { rmId: "RM-VITAMIN-C", seq: 10, qtyMgPerCapsule: 400 },
+                    { rmId: "RM-ZERDEÇAL-EKSTRE", seq: 20, qtyMgPerCapsule: 50 },
+                    { rmId: "RM-BIBERIYE-EKSTRE", seq: 30, qtyMgPerCapsule: 50 },
+                ]
+            },
+            {
+                id: "P-KOL-001", stockNo: "000078-A", name: "Kolajen Beauty Complex", form: "Kapsül",
+                barcode: "8680462001177", cpPerBox: 90, mgPerCapsule: 750, description: "Cilt, saç, tırnak desteği",
+                category: "GÜZELLİK", status: "active",
+                bom: [
+                    { rmId: "RM-KOLAJEN", seq: 10, qtyMgPerCapsule: 500 },
+                    { rmId: "RM-VITAMIN-C", seq: 20, qtyMgPerCapsule: 150 },
+                    { rmId: "RM-BIBERIYE-EKSTRE", seq: 30, qtyMgPerCapsule: 100 },
+                ]
+            },
+            {
+                id: "P-OMG-001", stockNo: "000091-A", name: "Omega-3 Premium", form: "Kapsül",
+                barcode: "8680462001184", cpPerBox: 60, mgPerCapsule: 1000, description: "Yüksek EPA/DHA omega-3",
+                category: "TAKVİYE", status: "draft",
+                bom: [
+                    { rmId: "RM-OMEGA3", seq: 10, qtyMgPerCapsule: 1000 },
+                ]
+            }
+        ];
+
+        // Müşteri Fiyat Listeleri
+        const priceLists = [
+            { id: "PL-RETAIL", name: "Perakende Satış", margin: 2.0 },
+            { id: "PL-WHOLESALE", name: "Toptan Satış", margin: 1.5 },
+            { id: "PL-PHARMACY", name: "Eczane Kanalı", margin: 1.8 },
+            { id: "PL-EXPORT", name: "İhracat (USD)", margin: 1.6 },
+        ];
+
+        // Parti (Batch) Kayıtları
+        const batchRecords = [
+            { id: "B-2025-001", productId: "P-JFY-001", qty: 5000, date: "2025-01-15", expiry: "2027-01-15", status: "released", qcStatus: "passed" },
+            { id: "B-2025-002", productId: "P-JFY-001", qty: 3000, date: "2025-02-01", expiry: "2027-02-01", status: "in_production", qcStatus: "pending" },
+            { id: "B-2025-003", productId: "P-CHI-001", qty: 2000, date: "2025-01-20", expiry: "2027-01-20", status: "released", qcStatus: "passed" },
+            { id: "B-2025-004", productId: "P-VIT-001", qty: 4000, date: "2025-02-05", expiry: "2027-02-05", status: "quarantine", qcStatus: "testing" },
+            { id: "B-2025-005", productId: "P-KOL-001", qty: 1500, date: "2025-02-10", expiry: "2027-02-10", status: "released", qcStatus: "passed" },
+        ];
+
+        // ═══════════════════════════════════════════════════════
+        // UTILITY FUNCTIONS — Hesaplama Motorları
+        // ═══════════════════════════════════════════════════════
+
+        function getRm(rmId) {
+            return rawMaterials.find(r => r.id === rmId);
+        }
+
+        // BOM için 1 kg karışım fiyatı hesapla
+        function calc1kgMixPrice(bom, mgPerCapsule, kur) {
+            let totalUsd = 0;
+            bom.forEach(item => {
+                const rm = getRm(item.rmId);
+                if (!rm) return;
+                const gramsFor1kg = (item.qtyMgPerCapsule / mgPerCapsule) * 1000; // g cinsinden 1kg karışım payı
+                totalUsd += (gramsFor1kg / 1000) * rm.priceUsd; // kg fiyatı ile çarp
+            });
+            return { usd: totalUsd, tl: totalUsd * kur };
+        }
+
+        // Tam maliyet hesaplama (Maliyet Motoru)
+        function calculateFullCost(params) {
+            const { product, qty, kur, genelGiderOrani, kargo, sigorta, strfr, ftr, partiTestGideri, iscilik, ambalaj } = params;
+            if (!product) return null;
+
+            const bom = product.bom;
+            const cp = product.cpPerBox;
+            const mg = product.mgPerCapsule;
+
+            // 1 kapsül ağırlığı gram
+            const grPerCapsule = mg / 1000;
+            // 1 kutu toplam gram
+            const grPerBox = grPerCapsule * cp;
+            // KG-AD (kg başına kutu adedi)
+            const kgAd = 1 / (grPerBox / 1000);
+
+            // Malzeme maliyeti (1 kutu için)
+            let malUsd = 0;
+            const bomDetails = bom.map(item => {
+                const rm = getRm(item.rmId);
+                if (!rm) return null;
+                const qtyGrPerCapsule = item.qtyMgPerCapsule / 1000;
+                const qtyGrPerBox = qtyGrPerCapsule * cp;
+                const qtyKgPerBox = qtyGrPerBox / 1000;
+                const costUsdPerBox = qtyKgPerBox * rm.priceUsd;
+                malUsd += costUsdPerBox;
+                return {
+                    ...item,
+                    rm,
+                    qtyGrPerBox,
+                    qtyKgPerBox,
+                    costUsd: costUsdPerBox,
+                    costTl: costUsdPerBox * kur,
+                    perKgUsd: (item.qtyMgPerCapsule / mg) * rm.priceUsd,
+                    perKgTl: ((item.qtyMgPerCapsule / mg) * rm.priceUsd) * kur,
+                };
+            }).filter(Boolean);
+
+            const malTl = malUsd * kur;
+            const hmm = malTl / kgAd; // kg başına malzeme TL? Hayır: malTl * kgAd?
+            // Görselden: HMM = MAL-TL / KG-AD => ₺3.872 / 11.85 = ₺326.7
+            // Aslında HMM (Hammadde Maliyeti) = MAL-TL / KG-AD
+            const hmmValue = malTl / kgAd;
+
+            // CPS (Kapsül Fiyatı) - kilitleme ile FX/44 gibi
+            const cpsValue = params.cps || (malUsd * kur / cp);
+
+            // Genel Gider
+            const genelGider = malTl * (genelGiderOrani / 100);
+
+            // İşçilik
+            const iscilikVal = iscilik || cpsValue;
+
+            // Ambalaj
+            const ambalajVal = ambalaj || 20;
+
+            // Reel Maliyet
+            const reelMaliyet = malTl + genelGider + iscilikVal + ambalajVal;
+
+            // Kâr (x2)
+            const kar = reelMaliyet * 2;
+
+            // Toplam = Reel Maliyet + Kâr + Kargo + FTR + STRFR
+            const toplam = reelMaliyet + kar + (kargo || 0) + (ftr || 0) + (strfr || 0);
+
+            // Birim maliyet
+            const birimMaliyet = malTl + genelGider + (kargo || 0) + (sigorta || 0) + (partiTestGideri || 0);
+
+            return {
+                grPerCapsule,
+                grPerBox,
+                kgAd,
+                malUsd,
+                malTl,
+                hmmValue,
+                cpsValue,
+                genelGider,
+                iscilikVal,
+                ambalajVal,
+                reelMaliyet,
+                kar,
+                kargo: kargo || 0,
+                ftr: ftr || 0,
+                strfr: strfr || 0,
+                sigorta: sigorta || 0,
+                partiTestGideri: partiTestGideri || 0,
+                birimMaliyet,
+                toplam,
+                bomDetails,
+                kur,
+            };
+        }
+
+        const fmt = (v, dec = 2) => {
+            if (v === null || v === undefined || isNaN(v)) return '—';
+            return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: dec, maximumFractionDigits: dec }).format(v);
+        };
+
+        const fmtTl = (v) => `₺${fmt(v)}`;
+        const fmtUsd = (v) => `$${fmt(v)}`;
+
+        // ═══════════════════════════════════════════════════════
+        // ICON WRAPPER
+        // ═══════════════════════════════════════════════════════
+        const Icon = ({ name, className = "", size = 20 }) => {
+            const ref = useRef(null);
+            useEffect(() => {
+                if (!window.lucide || !ref.current) return;
+                const iconNode = window.lucide.icons[name];
+                if (!iconNode) return;
+                const svg = window.lucide.createElement(iconNode);
+                svg.setAttribute('class', className);
+                svg.setAttribute('width', size);
+                svg.setAttribute('height', size);
+                ref.current.innerHTML = '';
+                ref.current.appendChild(svg);
+            }, [name, className, size]);
+            return <span ref={ref} className="inline-flex items-center justify-center" />;
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // SIDEBAR
+        // ═══════════════════════════════════════════════════════
+        const menuItems = [
+            { id: 'dashboard', label: 'Genel Bakış', icon: 'LayoutDashboard' },
+            {
+                id: 'uretim', label: 'Üretim', icon: 'Factory', children: [
+                    { id: 'products', label: 'Ürünler & Reçeteler' },
+                    { id: 'cost-engine', label: 'Maliyet Motoru' },
+                    { id: 'cost-table', label: 'Maliyet Tablosu' },
+                    { id: 'batches', label: 'Parti Yönetimi' },
+                    { id: 'production-plan', label: 'Üretim Planı' },
+                ]
+            },
+            {
+                id: 'malzeme', label: 'Malzeme', icon: 'Package', children: [
+                    { id: 'materials', label: 'Hammaddeler' },
+                    { id: 'netsys-sync', label: 'Netsys Entegrasyon' },
+                ]
+            },
+            {
+                id: 'satis', label: 'Satış', icon: 'ShoppingBag', children: [
+                    { id: 'price-lists', label: 'Fiyat Listeleri' },
+                    { id: 'profitability', label: 'Karlılık Analizi' },
+                ]
+            },
+            { id: 'ai-chat', label: 'AI Asistan', icon: 'Sparkles' },
+        ];
+
+        const Sidebar = ({ activeTab, setActiveTab }) => {
+            const [expanded, setExpanded] = useState({ uretim: true });
+
+            return (
+                <aside className="w-[260px] h-screen flex flex-col bg-sepe-950 text-white fixed left-0 top-0 z-30">
+                    {/* Brand */}
+                    <div className="px-6 py-5 flex items-center gap-3 border-b border-sepe-800/50">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sepe-400 to-sepe-600 flex items-center justify-center shadow-lg shadow-sepe-900/40">
+                            <Icon name="Leaf" className="text-white" size={18} />
+                        </div>
+                        <div>
+                            <h1 className="text-[15px] font-bold tracking-tight leading-none">Sepenatural</h1>
+                            <span className="text-[9px] font-semibold text-sepe-400 tracking-[0.15em] uppercase">Production ERP</span>
+                        </div>
+                    </div>
+
+                    {/* Nav */}
+                    <nav className="flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
+                        {menuItems.map(item => (
+                            <div key={item.id}>
+                                {item.children ? (
+                                    <>
+                                        <button
+                                            onClick={() => setExpanded(p => ({ ...p, [item.id]: !p[item.id] }))}
+                                            className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-150 ${expanded[item.id] ? 'bg-sepe-900/60 text-sepe-100' : 'text-sepe-300 hover:bg-sepe-900/40 hover:text-sepe-100'}`}
+                                        >
+                                            <div className="flex items-center gap-2.5">
+                                                <Icon name={item.icon} size={17} className="opacity-70" />
+                                                <span className="font-medium">{item.label}</span>
+                                            </div>
+                                            <Icon name="ChevronDown" size={14} className={`transition-transform duration-200 opacity-50 ${expanded[item.id] ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <div className={`overflow-hidden transition-all duration-250 ease-out ${expanded[item.id] ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                            <div className="ml-6 mt-1 mb-2 space-y-0.5 border-l border-sepe-800/60 pl-3">
+                                                {item.children.map(child => (
+                                                    <button
+                                                        key={child.id}
+                                                        onClick={() => setActiveTab(child.id)}
+                                                        className={`w-full text-left px-3 py-2 rounded-lg text-[13px] transition-all duration-150 ${activeTab === child.id
+                                                            ? 'bg-sepe-500 text-white font-semibold shadow-md shadow-sepe-900/30'
+                                                            : 'text-sepe-400 hover:text-sepe-200 hover:bg-sepe-900/30'}`}
+                                                    >
+                                                        {child.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <button
+                                        onClick={() => setActiveTab(item.id)}
+                                        className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all duration-150 ${activeTab === item.id
+                                            ? 'bg-gradient-to-r from-sepe-600 to-sepe-500 text-white font-semibold shadow-lg shadow-sepe-900/40'
+                                            : 'text-sepe-300 hover:bg-sepe-900/40 hover:text-sepe-100'}`}
+                                    >
+                                        <Icon name={item.icon} size={17} className="opacity-70" />
+                                        <span className="font-medium">{item.label}</span>
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </nav>
+
+                    {/* Footer */}
+                    <div className="p-3 border-t border-sepe-800/50">
+                        <div className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-sepe-900/40 transition cursor-pointer">
+                            <div className="w-8 h-8 rounded-full bg-sepe-700 flex items-center justify-center text-xs font-bold text-sepe-200">SN</div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs font-medium text-sepe-200 truncate">Sepenatural Admin</p>
+                                <p className="text-[10px] text-sepe-500">Üretim Merkezi</p>
+                            </div>
+                            <Icon name="Settings" size={14} className="text-sepe-600" />
+                        </div>
+                    </div>
+                </aside>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // DASHBOARD
+        // ═══════════════════════════════════════════════════════
+        const Dashboard = () => {
+            const totalProducts = products.length;
+            const activeProducts = products.filter(p => p.status === 'active').length;
+            const totalMaterials = rawMaterials.length;
+            const totalBatches = batchRecords.length;
+            const releasedBatches = batchRecords.filter(b => b.status === 'released').length;
+
+            const kpis = [
+                { label: "Aktif Ürünler", value: activeProducts, total: totalProducts, icon: "Package", color: "sepe" },
+                { label: "Hammadde Çeşidi", value: totalMaterials, total: null, icon: "Leaf", color: "amber" },
+                { label: "Serbest Partiler", value: releasedBatches, total: totalBatches, icon: "CheckCircle", color: "blue" },
+                { label: "Ort. Kâr Marjı", value: "x2.0", total: null, icon: "TrendingUp", color: "emerald" },
+            ];
+
+            const colorMap = {
+                sepe: { bg: 'bg-sepe-50', text: 'text-sepe-700', icon: 'text-sepe-500', border: 'border-sepe-200' },
+                amber: { bg: 'bg-amber-50', text: 'text-amber-700', icon: 'text-amber-500', border: 'border-amber-200' },
+                blue: { bg: 'bg-blue-50', text: 'text-blue-700', icon: 'text-blue-500', border: 'border-blue-200' },
+                emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700', icon: 'text-emerald-500', border: 'border-emerald-200' },
+            };
+
+            return (
+                <div className="space-y-6 animate-fadeIn">
+                    <div>
+                        <h2 className="text-2xl font-bold text-bark-950">Genel Bakış</h2>
+                        <p className="text-bark-500 text-sm mt-1">Sepenatural üretim ve maliyet özeti</p>
+                    </div>
+
+                    {/* KPIs */}
+                    <div className="grid grid-cols-4 gap-4 stagger">
+                        {kpis.map((kpi, i) => {
+                            const c = colorMap[kpi.color];
+                            return (
+                                <div key={i} className={`glass-card p-5 animate-fadeIn border ${c.border}`}>
+                                    <div className="flex items-start justify-between">
+                                        <div>
+                                            <p className="text-xs font-semibold text-bark-400 uppercase tracking-wider">{kpi.label}</p>
+                                            <p className={`text-3xl font-bold mt-2 ${c.text}`}>{kpi.value}</p>
+                                            {kpi.total && <p className="text-xs text-bark-400 mt-1">/ {kpi.total} toplam</p>}
+                                        </div>
+                                        <div className={`p-2.5 rounded-xl ${c.bg}`}>
+                                            <Icon name={kpi.icon} size={20} className={c.icon} />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Recent Products + Batches */}
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="col-span-2 glass-card p-6">
+                            <h3 className="font-semibold text-bark-800 mb-4 flex items-center gap-2">
+                                <Icon name="Package" size={16} className="text-sepe-500" /> Son Ürünler
+                            </h3>
+                            <div className="space-y-2">
+                                {products.slice(0, 4).map(p => {
+                                    const mix = calc1kgMixPrice(p.bom, p.mgPerCapsule, USD_KUR_DEFAULT);
+                                    return (
+                                        <div key={p.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-bark-50 transition group">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-xl bg-sepe-50 border border-sepe-200 flex items-center justify-center">
+                                                    <Icon name="Pill" size={18} className="text-sepe-600" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-semibold text-bark-800">{p.name}</p>
+                                                    <p className="text-xs text-bark-400">{p.stockNo} · {p.cpPerBox} kapsül · {p.mgPerCapsule}mg</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-sm font-bold font-mono text-sepe-700">{fmtTl(mix.tl)}<span className="text-bark-400 font-normal">/kg</span></p>
+                                                <p className="text-[10px] text-bark-400">{fmtUsd(mix.usd)}/kg</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-6">
+                            <h3 className="font-semibold text-bark-800 mb-4 flex items-center gap-2">
+                                <Icon name="Layers" size={16} className="text-blue-500" /> Son Partiler
+                            </h3>
+                            <div className="space-y-2">
+                                {batchRecords.slice(0, 5).map(b => {
+                                    const prod = products.find(p => p.id === b.productId);
+                                    const statusColors = {
+                                        released: 'bg-emerald-100 text-emerald-700',
+                                        in_production: 'bg-blue-100 text-blue-700',
+                                        quarantine: 'bg-amber-100 text-amber-700',
+                                    };
+                                    return (
+                                        <div key={b.id} className="p-3 rounded-xl hover:bg-bark-50 transition">
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-xs font-mono font-semibold text-bark-600">{b.id}</p>
+                                                <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${statusColors[b.status] || 'bg-bark-100 text-bark-600'}`}>
+                                                    {b.status === 'released' ? 'Serbest' : b.status === 'in_production' ? 'Üretimde' : 'Karantina'}
+                                                </span>
+                                            </div>
+                                            <p className="text-xs text-bark-500 mt-1">{prod?.name} · {b.qty.toLocaleString()} adet</p>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // PRODUCTS MODULE (Ürünler & Reçeteler)
+        // ═══════════════════════════════════════════════════════
+        const ProductsModule = () => {
+            const [selected, setSelected] = useState(null);
+            const [kur, setKur] = useState(USD_KUR_DEFAULT);
+
+            if (selected) {
+                const mix = calc1kgMixPrice(selected.bom, selected.mgPerCapsule, kur);
+                return (
+                    <div className="space-y-5 animate-fadeIn">
+                        <button onClick={() => setSelected(null)} className="flex items-center gap-2 text-sm text-bark-500 hover:text-sepe-700 transition font-medium">
+                            <Icon name="ArrowLeft" size={16} /> Ürün Listesine Dön
+                        </button>
+
+                        {/* Header */}
+                        <div className="glass-card p-6">
+                            <div className="flex items-start justify-between">
+                                <div>
+                                    <p className="text-xs font-mono text-bark-400">{selected.stockNo} — {selected.name} {selected.cpPerBox} KAPSUL X {selected.mgPerCapsule}MG (Barkod: {selected.barcode})</p>
+                                    <h2 className="text-xl font-bold text-bark-900 mt-1">{selected.name}</h2>
+                                    <p className="text-sm text-bark-500 mt-1">{selected.description}</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <div className="px-3 py-1.5 bg-sepe-50 border border-sepe-200 rounded-lg text-xs font-semibold text-sepe-700">Bileşen: {selected.bom.length}</div>
+                                    <div className="px-3 py-1.5 bg-bark-100 border border-bark-200 rounded-lg text-xs font-semibold text-bark-700">1 kg Karışım: {fmtUsd(mix.usd)} / {fmtTl(mix.tl)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* BOM Table */}
+                        <div className="glass-card overflow-hidden">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm">
+                                    <thead>
+                                        <tr className="bg-bark-50/80 border-b border-bark-200">
+                                            <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">#</th>
+                                            <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">İçerik</th>
+                                            <th className="px-5 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">Birim Fiyat (USD/kg)</th>
+                                            <th className="px-5 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">1 Kapsül İçeriği (mg)</th>
+                                            <th className="px-5 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">1kg için Miktar (g)</th>
+                                            <th className="px-5 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">1kg Karışım Fiyatı (USD)</th>
+                                            <th className="px-5 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">1kg Karışım Fiyatı (TL)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-bark-100">
+                                        {selected.bom.map(item => {
+                                            const rm = getRm(item.rmId);
+                                            if (!rm) return null;
+                                            const grFor1kg = (item.qtyMgPerCapsule / selected.mgPerCapsule) * 1000;
+                                            const usdFor1kg = (grFor1kg / 1000) * rm.priceUsd;
+                                            const tlFor1kg = usdFor1kg * kur;
+                                            return (
+                                                <tr key={item.seq} className="table-row-hover transition">
+                                                    <td className="px-5 py-3 font-mono text-bark-400 font-semibold">{item.seq}</td>
+                                                    <td className="px-5 py-3 font-semibold text-bark-800">{rm.name}</td>
+                                                    <td className="px-5 py-3 text-right font-mono text-bark-600">${fmt(rm.priceUsd)}</td>
+                                                    <td className="px-5 py-3 text-right font-mono text-bark-600">{item.qtyMgPerCapsule}</td>
+                                                    <td className="px-5 py-3 text-right font-mono text-bark-600">{fmt(grFor1kg, 0)}</td>
+                                                    <td className="px-5 py-3 text-right font-mono font-semibold text-bark-800">${fmt(usdFor1kg)}</td>
+                                                    <td className="px-5 py-3 text-right font-mono font-semibold text-sepe-700">{fmtTl(tlFor1kg)}</td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr className="bg-sepe-50/60 border-t-2 border-sepe-200">
+                                            <td colSpan={5} className="px-5 py-3 text-right font-bold text-bark-700 uppercase text-xs tracking-wider">TOPLAM</td>
+                                            <td className="px-5 py-3 text-right font-mono font-bold text-bark-900">{fmtUsd(mix.usd)}</td>
+                                            <td className="px-5 py-3 text-right font-mono font-bold text-sepe-700 text-base">{fmtTl(mix.tl)}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Ürünler & Reçeteler</h2>
+                            <p className="text-bark-500 text-sm mt-1">Tüm ürünlerin BOM yapısı ve karışım fiyatları</p>
+                        </div>
+                    </div>
+
+                    <div className="glass-card overflow-hidden">
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-bark-50/80 border-b border-bark-200">
+                                    <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">Stok No</th>
+                                    <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">Ürün Adı</th>
+                                    <th className="px-5 py-3 text-center text-xs font-bold text-bark-500 uppercase tracking-wider">Kapsül</th>
+                                    <th className="px-5 py-3 text-center text-xs font-bold text-bark-500 uppercase tracking-wider">mg</th>
+                                    <th className="px-5 py-3 text-center text-xs font-bold text-bark-500 uppercase tracking-wider">Bileşen</th>
+                                    <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">Barkod</th>
+                                    <th className="px-5 py-3 text-center text-xs font-bold text-bark-500 uppercase tracking-wider">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-bark-100">
+                                {products.map(p => (
+                                    <tr key={p.id} onClick={() => setSelected(p)} className="table-row-hover cursor-pointer transition group">
+                                        <td className="px-5 py-3 font-mono text-xs font-semibold text-bark-600">{p.stockNo}</td>
+                                        <td className="px-5 py-3">
+                                            <p className="font-semibold text-bark-800 group-hover:text-sepe-700 transition">{p.name}</p>
+                                            <p className="text-[11px] text-bark-400">{p.description}</p>
+                                        </td>
+                                        <td className="px-5 py-3 text-center font-mono text-bark-600">{p.cpPerBox}</td>
+                                        <td className="px-5 py-3 text-center font-mono text-bark-600">{p.mgPerCapsule}</td>
+                                        <td className="px-5 py-3 text-center">
+                                            <span className="px-2 py-0.5 bg-sepe-50 border border-sepe-200 rounded-full text-xs font-semibold text-sepe-700">{p.bom.length}</span>
+                                        </td>
+                                        <td className="px-5 py-3 font-mono text-xs text-bark-400">{p.barcode}</td>
+                                        <td className="px-5 py-3 text-center">
+                                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${p.status === 'active' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-bark-100 text-bark-500 border border-bark-200'}`}>
+                                                {p.status === 'active' ? 'Aktif' : 'Taslak'}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // COST ENGINE (Maliyet Motoru)
+        // ═══════════════════════════════════════════════════════
+        const CostEngine = () => {
+            const [selectedProduct, setSelectedProduct] = useState(products[0]);
+            const [params, setParams] = useState({
+                qty: 1, kur: USD_KUR_DEFAULT, genelGiderOrani: 10,
+                kargo: 80, sigorta: 20, ftr: 5, strfr: 5,
+                partiTestGideri: 40, cps: null, iscilik: null, ambalaj: 20,
+            });
+            const [result, setResult] = useState(null);
+
+            const handleCalc = () => {
+                const r = calculateFullCost({ product: selectedProduct, ...params });
+                setResult(r);
+            };
+
+            useEffect(() => { handleCalc(); }, [selectedProduct]);
+
+            const updateParam = (key, val) => {
+                const newParams = { ...params, [key]: parseFloat(val) || 0 };
+                setParams(newParams);
+            };
+
+            const InputField = ({ label, paramKey, suffix }) => (
+                <div>
+                    <label className="text-[11px] font-semibold text-bark-500 uppercase tracking-wider block mb-1">{label}</label>
+                    <div className="relative">
+                        <input
+                            type="number"
+                            value={params[paramKey]}
+                            onChange={e => updateParam(paramKey, e.target.value)}
+                            className="w-full px-3 py-2.5 bg-white border border-bark-200 rounded-xl text-sm font-mono font-semibold text-bark-800 focus:outline-none focus:ring-2 focus:ring-sepe-400 focus:border-sepe-400 transition"
+                        />
+                        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-bark-400 font-semibold">{suffix}</span>}
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div>
+                        <h2 className="text-2xl font-bold text-bark-950">Maliyet Motoru</h2>
+                        <p className="text-bark-500 text-sm mt-1">BOM + USD Kuru bazlı dinamik maliyet hesaplama</p>
+                    </div>
+
+                    {/* Input Form */}
+                    <div className="glass-card p-6">
+                        <div className="grid grid-cols-6 gap-4">
+                            <div className="col-span-2">
+                                <label className="text-[11px] font-semibold text-bark-500 uppercase tracking-wider block mb-1">Ürün</label>
+                                <select
+                                    value={selectedProduct?.id || ''}
+                                    onChange={e => setSelectedProduct(products.find(p => p.id === e.target.value))}
+                                    className="w-full px-3 py-2.5 bg-white border border-bark-200 rounded-xl text-sm font-semibold text-bark-800 focus:outline-none focus:ring-2 focus:ring-sepe-400 transition"
+                                >
+                                    {products.map(p => (
+                                        <option key={p.id} value={p.id}>{p.stockNo} — {p.name} {p.cpPerBox} KAPSUL X {p.mgPerCapsule}MG</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <InputField label="CP (kutu kapsül adedi)" paramKey="qty" />
+                            <InputField label="USD Kuru" paramKey="kur" />
+                            <InputField label="Genel Gider Oranı" paramKey="genelGiderOrani" suffix="%" />
+                            <InputField label="Parti Sabit Test Gideri (₺)" paramKey="partiTestGideri" suffix="₺" />
+                        </div>
+
+                        <div className="grid grid-cols-6 gap-4 mt-4">
+                            <InputField label="Kargo (TL)" paramKey="kargo" suffix="₺" />
+                            <InputField label="Sigorta (₺)" paramKey="sigorta" suffix="₺" />
+                            <InputField label="FTR (TL)" paramKey="ftr" suffix="₺" />
+                            <InputField label="STRFR (TL)" paramKey="strfr" suffix="₺" />
+                            <InputField label="İşçilik (₺)" paramKey="iscilik" suffix="₺" />
+                            <div className="flex items-end">
+                                <button onClick={handleCalc} className="w-full py-2.5 bg-sepe-600 hover:bg-sepe-700 text-white rounded-xl font-semibold text-sm shadow-lg shadow-sepe-200 transition-all active:scale-[0.98]">
+                                    Hesapla
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Results */}
+                    {result && (
+                        <div className="grid grid-cols-2 gap-4 animate-fadeIn">
+                            {/* Summary */}
+                            <div className="glass-card p-6">
+                                <h3 className="font-bold text-bark-800 mb-1">Sonuç</h3>
+                                <p className="text-xs text-bark-400 mb-4">1 adet için maliyet özeti</p>
+                                <div className="space-y-0 divide-y divide-bark-100">
+                                    {[
+                                        { label: "Malzeme Alt Toplam", value: fmtTl(result.malTl) },
+                                        { label: "Genel Gider", value: fmtTl(result.genelGider) },
+                                        { label: "Değişkenler (Kargo+Sigorta)", value: fmtTl(result.kargo + result.sigorta) },
+                                        { label: "Parti Sabit Test Gideri", value: fmtTl(result.partiTestGideri) },
+                                        { label: "Kullanılan USD Kuru", value: fmt(result.kur) },
+                                        { label: "Birim Maliyet", value: fmtTl(result.birimMaliyet), bold: true },
+                                        { label: "Toplam", value: fmtTl(result.toplam), bold: true, accent: true },
+                                    ].map((row, i) => (
+                                        <div key={i} className={`flex justify-between py-3 ${row.bold ? 'font-bold' : ''} ${row.accent ? 'text-sepe-700 text-lg bg-sepe-50/50 px-2 -mx-2 rounded-lg' : 'text-bark-700'}`}>
+                                            <span className={row.bold ? '' : 'text-bark-500'}>{row.label}</span>
+                                            <span className="font-mono">{row.value}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* BOM Breakdown */}
+                            <div className="glass-card p-6">
+                                <h3 className="font-bold text-bark-800 mb-1">BOM Görünümü</h3>
+                                <p className="text-xs text-bark-400 mb-4">{selectedProduct.name} (BOM) — {fmtTl(result.malTl)}</p>
+                                <div className="space-y-2">
+                                    {result.bomDetails.map((item, i) => (
+                                        <div key={i} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-bark-50 transition text-sm">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-6 h-6 rounded-full bg-sepe-100 border border-sepe-200 flex items-center justify-center text-[10px] font-bold text-sepe-600">{item.seq}</div>
+                                                <div>
+                                                    <span className="font-semibold text-bark-800">{item.rm.name}</span>
+                                                    <span className="text-bark-400 text-xs ml-2">({item.rmId})</span>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="font-mono text-bark-500 text-xs">{item.qtyMgPerCapsule}mg × {selectedProduct.cpPerBox} = </span>
+                                                <span className="font-mono font-semibold text-sepe-700">{fmtTl(item.costTl)}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // COST TABLE (Maliyet Tablosu)
+        // ═══════════════════════════════════════════════════════
+        const CostTable = () => {
+            const [kur, setKur] = useState(USD_KUR_DEFAULT);
+            const [visibleCols, setVisibleCols] = useState({
+                urun: true, id: true, cp: true, mg: true, gr: true, kgAd: true,
+                malUsd: true, kurCol: true, malTl: true, hmm: true, cps: true,
+                iscilik: true, ambalaj: true, kargo: true, ftr: true, strfr: true,
+                reelMaliyet: true, kar: true, toplam: true,
+            });
+
+            const allCols = [
+                { key: 'urun', label: 'Ürün' }, { key: 'id', label: 'ID' },
+                { key: 'cp', label: 'CP' }, { key: 'mg', label: 'MG' },
+                { key: 'gr', label: 'GR (g/kutu)' }, { key: 'kgAd', label: 'KG-AD' },
+                { key: 'malUsd', label: 'MAL-USD' }, { key: 'kurCol', label: 'Kur' },
+                { key: 'malTl', label: 'MAL-TL' }, { key: 'hmm', label: 'HMM' },
+                { key: 'cps', label: 'CPS' }, { key: 'iscilik', label: 'İŞÇ' },
+                { key: 'ambalaj', label: 'AMB' }, { key: 'kargo', label: 'Kargo' },
+                { key: 'ftr', label: 'FTR' }, { key: 'strfr', label: 'STRFR' },
+                { key: 'reelMaliyet', label: 'Reel Maliyet' }, { key: 'kar', label: 'Kâr (x2)' },
+                { key: 'toplam', label: 'Toplam' },
+            ];
+
+            const rows = products.filter(p => p.status === 'active').map(p => {
+                const r = calculateFullCost({
+                    product: p, qty: 1, kur, genelGiderOrani: 10,
+                    kargo: 80, sigorta: 20, ftr: 5, strfr: 5,
+                    partiTestGideri: 40, iscilik: null, ambalaj: 20,
+                });
+                return { product: p, result: r };
+            });
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Maliyet Tablosu</h2>
+                            <p className="text-bark-500 text-sm mt-1">Tüm ürünlerin karşılaştırmalı maliyet analizi</p>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                            <span className="text-xs font-semibold text-bark-500">USD/TRY:</span>
+                            <input type="number" value={kur} onChange={e => setKur(parseFloat(e.target.value) || 44)}
+                                className="w-20 px-2 py-1.5 border border-bark-200 rounded-lg text-sm font-mono text-center focus:outline-none focus:ring-2 focus:ring-sepe-400" />
+                        </div>
+                    </div>
+
+                    {/* Column toggles */}
+                    <div className="glass-card p-4">
+                        <div className="flex flex-wrap gap-2 items-center">
+                            <span className="text-xs font-bold text-bark-500 uppercase tracking-wider mr-2">Alanlar:</span>
+                            {allCols.map(col => (
+                                <button key={col.key}
+                                    onClick={() => setVisibleCols(p => ({ ...p, [col.key]: !p[col.key] }))}
+                                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition ${visibleCols[col.key] ? 'bg-sepe-100 text-sepe-700 border border-sepe-300' : 'bg-bark-100 text-bark-400 border border-bark-200'}`}
+                                >
+                                    {col.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-xs">
+                                <thead>
+                                    <tr className="bg-bark-50/80 border-b border-bark-200">
+                                        {allCols.filter(c => visibleCols[c.key]).map(col => (
+                                            <th key={col.key} className="px-3 py-3 text-left font-bold text-bark-500 uppercase tracking-wider whitespace-nowrap">{col.label}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-bark-100">
+                                    {rows.map(({ product: p, result: r }) => {
+                                        if (!r) return null;
+                                        const vals = {
+                                            urun: p.name,
+                                            id: p.stockNo,
+                                            cp: p.cpPerBox,
+                                            mg: p.mgPerCapsule,
+                                            gr: fmt(r.grPerBox, 0),
+                                            kgAd: fmt(r.kgAd),
+                                            malUsd: fmt(r.malUsd),
+                                            kurCol: kur,
+                                            malTl: fmtTl(r.malTl),
+                                            hmm: fmtTl(r.hmmValue),
+                                            cps: fmtTl(r.cpsValue),
+                                            iscilik: fmtTl(r.iscilikVal),
+                                            ambalaj: fmtTl(r.ambalajVal),
+                                            kargo: fmtTl(r.kargo),
+                                            ftr: fmtTl(r.ftr),
+                                            strfr: fmtTl(r.strfr),
+                                            reelMaliyet: fmtTl(r.reelMaliyet),
+                                            kar: fmtTl(r.kar),
+                                            toplam: fmtTl(r.toplam),
+                                        };
+                                        return (
+                                            <tr key={p.id} className="table-row-hover transition">
+                                                {allCols.filter(c => visibleCols[c.key]).map(col => (
+                                                    <td key={col.key} className={`px-3 py-3 whitespace-nowrap font-mono ${col.key === 'urun' ? 'font-sans font-semibold text-bark-800' : col.key === 'toplam' ? 'font-bold text-sepe-700' : 'text-bark-600'}`}>
+                                                        {vals[col.key]}
+                                                    </td>
+                                                ))}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // MATERIALS MODULE (Hammaddeler)
+        // ═══════════════════════════════════════════════════════
+        const MaterialsModule = () => {
+            const [search, setSearch] = useState('');
+            const [filterCat, setFilterCat] = useState('ALL');
+
+            const categories = [...new Set(rawMaterials.map(r => r.category))];
+            const filtered = rawMaterials.filter(r => {
+                const s = search.toLowerCase();
+                return (r.name.toLowerCase().includes(s) || r.id.toLowerCase().includes(s)) &&
+                    (filterCat === 'ALL' || r.category === filterCat);
+            });
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Hammaddeler</h2>
+                            <p className="text-bark-500 text-sm mt-1">Tüm hammadde ve ambalaj malzemeleri</p>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-4 flex gap-3">
+                        <div className="relative flex-1">
+                            <Icon name="Search" size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-bark-400" />
+                            <input type="text" placeholder="Malzeme ara..." value={search} onChange={e => setSearch(e.target.value)}
+                                className="w-full pl-9 pr-4 py-2 bg-bark-50 border border-bark-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sepe-400 focus:bg-white transition" />
+                        </div>
+                        <select value={filterCat} onChange={e => setFilterCat(e.target.value)}
+                            className="px-3 py-2 border border-bark-200 rounded-xl text-sm text-bark-600 bg-white focus:outline-none focus:ring-2 focus:ring-sepe-400">
+                            <option value="ALL">Tüm Kategoriler</option>
+                            {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
+
+                    <div className="glass-card overflow-hidden">
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-bark-50/80 border-b border-bark-200">
+                                    {['Kod', 'Malzeme Adı', 'Kategori', 'Birim', 'Fiyat (USD/kg)', 'Tedarikçi', 'Teslim Süresi', 'Min. Sipariş'].map(h => (
+                                        <th key={h} className="px-4 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-bark-100">
+                                {filtered.map(rm => (
+                                    <tr key={rm.id} className="table-row-hover transition">
+                                        <td className="px-4 py-3 font-mono text-xs font-semibold text-bark-600">{rm.id}</td>
+                                        <td className="px-4 py-3 font-semibold text-bark-800">{rm.name}</td>
+                                        <td className="px-4 py-3">
+                                            <span className="px-2 py-0.5 bg-bark-100 border border-bark-200 rounded-full text-[10px] font-bold text-bark-600">{rm.category}</span>
+                                        </td>
+                                        <td className="px-4 py-3 text-bark-500">{rm.unit}</td>
+                                        <td className="px-4 py-3 font-mono font-semibold text-bark-700">${fmt(rm.priceUsd)}</td>
+                                        <td className="px-4 py-3 text-bark-500 text-xs">{rm.supplier}</td>
+                                        <td className="px-4 py-3 text-bark-500">{rm.leadTime} gün</td>
+                                        <td className="px-4 py-3 font-mono text-bark-500">{rm.minOrder.toLocaleString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // BATCH MANAGEMENT (Parti Yönetimi)
+        // ═══════════════════════════════════════════════════════
+        const BatchManagement = () => {
+            const statusMap = {
+                released: { label: 'Serbest', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+                in_production: { label: 'Üretimde', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+                quarantine: { label: 'Karantina', color: 'bg-amber-50 text-amber-700 border-amber-200' },
+            };
+            const qcMap = {
+                passed: { label: 'Geçti', color: 'text-emerald-600' },
+                pending: { label: 'Beklemede', color: 'text-bark-400' },
+                testing: { label: 'Test', color: 'text-amber-600' },
+            };
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div>
+                        <h2 className="text-2xl font-bold text-bark-950">Parti Yönetimi</h2>
+                        <p className="text-bark-500 text-sm mt-1">Üretim partileri ve kalite kontrol durumu</p>
+                    </div>
+
+                    <div className="glass-card overflow-hidden">
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-bark-50/80 border-b border-bark-200">
+                                    {['Parti No', 'Ürün', 'Miktar', 'Üretim Tarihi', 'Son Kullanma', 'Durum', 'QC'].map(h => (
+                                        <th key={h} className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-bark-100">
+                                {batchRecords.map(b => {
+                                    const prod = products.find(p => p.id === b.productId);
+                                    const st = statusMap[b.status] || { label: b.status, color: 'bg-bark-100 text-bark-600 border-bark-200' };
+                                    const qc = qcMap[b.qcStatus] || { label: b.qcStatus, color: 'text-bark-400' };
+                                    return (
+                                        <tr key={b.id} className="table-row-hover transition">
+                                            <td className="px-5 py-3 font-mono font-semibold text-bark-700">{b.id}</td>
+                                            <td className="px-5 py-3 font-semibold text-bark-800">{prod?.name || '—'}</td>
+                                            <td className="px-5 py-3 font-mono text-bark-600">{b.qty.toLocaleString()}</td>
+                                            <td className="px-5 py-3 text-bark-500">{b.date}</td>
+                                            <td className="px-5 py-3 text-bark-500">{b.expiry}</td>
+                                            <td className="px-5 py-3">
+                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${st.color}`}>{st.label}</span>
+                                            </td>
+                                            <td className="px-5 py-3">
+                                                <span className={`text-xs font-semibold ${qc.color}`}>{qc.label}</span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // PRICE LISTS (Fiyat Listeleri)
+        // ═══════════════════════════════════════════════════════
+        const PriceListsModule = () => {
+            const [kur, setKur] = useState(USD_KUR_DEFAULT);
+
+            return (
+                <div className="space-y-5 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Fiyat Listeleri</h2>
+                            <p className="text-bark-500 text-sm mt-1">Müşteri kanallarına göre ürün fiyatlandırması</p>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                            <span className="text-xs font-semibold text-bark-500">USD/TRY:</span>
+                            <input type="number" value={kur} onChange={e => setKur(parseFloat(e.target.value) || 44)}
+                                className="w-20 px-2 py-1.5 border border-bark-200 rounded-lg text-sm font-mono text-center focus:outline-none focus:ring-2 focus:ring-sepe-400" />
+                        </div>
+                    </div>
+
+                    {priceLists.map(pl => (
+                        <div key={pl.id} className="glass-card overflow-hidden">
+                            <div className="px-5 py-4 bg-bark-50/50 border-b border-bark-200 flex items-center justify-between">
+                                <div>
+                                    <h3 className="font-bold text-bark-800">{pl.name}</h3>
+                                    <p className="text-xs text-bark-400">Kâr Çarpanı: x{pl.margin}</p>
+                                </div>
+                                <span className="px-3 py-1 bg-sepe-50 border border-sepe-200 rounded-lg text-xs font-bold text-sepe-700">{pl.id}</span>
+                            </div>
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b border-bark-100">
+                                        {['Ürün', 'Birim Maliyet (₺)', 'Kâr Marjı', 'Satış Fiyatı (₺)', 'Satış Fiyatı (USD)'].map(h => (
+                                            <th key={h} className="px-5 py-2.5 text-left text-[10px] font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-bark-50">
+                                    {products.filter(p => p.status === 'active').map(p => {
+                                        const r = calculateFullCost({
+                                            product: p, qty: 1, kur, genelGiderOrani: 10,
+                                            kargo: 80, sigorta: 20, ftr: 5, strfr: 5,
+                                            partiTestGideri: 40, iscilik: null, ambalaj: 20,
+                                        });
+                                        if (!r) return null;
+                                        const sellTl = r.birimMaliyet * pl.margin;
+                                        const sellUsd = sellTl / kur;
+                                        return (
+                                            <tr key={p.id} className="table-row-hover transition">
+                                                <td className="px-5 py-3 font-semibold text-bark-800">{p.name}</td>
+                                                <td className="px-5 py-3 font-mono text-bark-600">{fmtTl(r.birimMaliyet)}</td>
+                                                <td className="px-5 py-3 font-mono text-sepe-600">x{pl.margin}</td>
+                                                <td className="px-5 py-3 font-mono font-bold text-bark-800">{fmtTl(sellTl)}</td>
+                                                <td className="px-5 py-3 font-mono text-bark-500">{fmtUsd(sellUsd)}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // KARLILlK ANALİZİ (profitability)
+        // ═══════════════════════════════════════════════════════
+        const ProfitabilityModule = () => {
+            const [kur, setKur] = useState(USD_KUR_DEFAULT);
+
+            const rm_map = Object.fromEntries(rawMaterials.map(r => [r.id, r]));
+
+            // Her aktif ürün için maliyet + kanal karlılıkları hesapla
+            const profitRows = products.filter(p => p.status === 'active').map(p => {
+                const r = calculateFullCost({
+                    product: p, qty: 1, kur, genelGiderOrani: 10,
+                    kargo: 80, sigorta: 20, ftr: 5, strfr: 5,
+                    partiTestGideri: 40, iscilik: null, ambalaj: 20,
+                });
+                const channels = priceLists.map(pl => {
+                    const sellTl = r.birimMaliyet * pl.margin;
+                    const grossProfit = sellTl - r.birimMaliyet;
+                    const marginPct = ((grossProfit / sellTl) * 100);
+                    return { ...pl, sellTl, grossProfit, marginPct };
+                });
+                // Parti verisinden toplam üretim
+                const batches = batchRecords.filter(b => b.productId === p.id);
+                const totalProduced = batches.reduce((s, b) => s + b.qty, 0);
+                const releasedQty = batches.filter(b => b.status === 'released').reduce((s, b) => s + b.qty, 0);
+                return { product: p, result: r, channels, totalProduced, releasedQty };
+            });
+
+            // Genel KPI'lar
+            const avgMargin = profitRows.length > 0
+                ? profitRows.reduce((s, r) => s + r.channels[0].marginPct, 0) / profitRows.length
+                : 0;
+            const totalBirimMaliyet = profitRows.reduce((s, r) => s + r.result.birimMaliyet, 0);
+            const bestProduct = profitRows.length > 0
+                ? profitRows.reduce((best, r) => r.channels[0].marginPct > best.channels[0].marginPct ? r : best)
+                : null;
+
+            return (
+                <div className="space-y-6 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Karlılık Analizi</h2>
+                            <p className="text-bark-500 text-sm mt-1">Ürün ve kanal bazlı kâr marjı analizi</p>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                            <span className="text-xs font-semibold text-bark-500">USD/TRY:</span>
+                            <input type="number" value={kur} onChange={e => setKur(parseFloat(e.target.value) || 44)}
+                                className="w-20 px-2 py-1.5 border border-bark-200 rounded-lg text-sm font-mono text-center focus:outline-none focus:ring-2 focus:ring-sepe-400" />
+                        </div>
+                    </div>
+
+                    {/* KPI'lar */}
+                    <div className="grid grid-cols-4 gap-4 stagger">
+                        {[
+                            { label: "Ort. Brüt Marj", value: `%${fmt(avgMargin, 1)}`, sub: "Perakende kanalı", icon: "TrendingUp", color: "sepe" },
+                            { label: "En Karlı Ürün", value: bestProduct?.product.name.split(' ').slice(0,2).join(' ') || '—', sub: `%${fmt(bestProduct?.channels[0].marginPct || 0, 1)} marj`, icon: "Star", color: "amber" },
+                            { label: "Serbest Parti", value: batchRecords.filter(b => b.status === 'released').length, sub: `${batchRecords.reduce((s,b) => s+b.qty,0).toLocaleString()} adet toplam`, icon: "CheckCircle", color: "blue" },
+                            { label: "Toplam Maliyet", value: fmtTl(totalBirimMaliyet), sub: "Tüm aktif ürünler / kutu", icon: "DollarSign", color: "emerald" },
+                        ].map((kpi, i) => {
+                            const cMap = { sepe: 'bg-sepe-50 border-sepe-200 text-sepe-700', amber: 'bg-amber-50 border-amber-200 text-amber-700', blue: 'bg-blue-50 border-blue-200 text-blue-700', emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700' };
+                            const iconMap = { sepe: 'text-sepe-500', amber: 'text-amber-500', blue: 'text-blue-500', emerald: 'text-emerald-500' };
+                            return (
+                                <div key={i} className={`glass-card p-5 border animate-fadeIn ${cMap[kpi.color]}`}>
+                                    <div className="flex items-start justify-between">
+                                        <div>
+                                            <p className="text-[10px] font-bold uppercase tracking-wider opacity-70">{kpi.label}</p>
+                                            <p className="text-2xl font-bold mt-1.5">{kpi.value}</p>
+                                            <p className="text-[11px] opacity-60 mt-1">{kpi.sub}</p>
+                                        </div>
+                                        <div className="p-2.5 rounded-xl bg-white/60">
+                                            <Icon name={kpi.icon} size={20} className={iconMap[kpi.color]} />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Ürün bazlı karlılık tablosu */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="px-6 py-4 border-b border-bark-100 flex items-center gap-2">
+                            <Icon name="BarChart2" size={16} className="text-sepe-500" />
+                            <h3 className="font-bold text-bark-800">Ürün × Kanal Karlılık Matrisi</h3>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="bg-bark-50/80 border-b border-bark-200">
+                                        <th className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">Ürün</th>
+                                        <th className="px-4 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">Birim Maliyet</th>
+                                        {priceLists.map(pl => (
+                                            <th key={pl.id} className="px-4 py-3 text-center text-xs font-bold text-bark-500 uppercase tracking-wider" colSpan={2}>{pl.name}</th>
+                                        ))}
+                                        <th className="px-4 py-3 text-right text-xs font-bold text-bark-500 uppercase tracking-wider">Serbest Adet</th>
+                                    </tr>
+                                    <tr className="bg-bark-50/40 border-b border-bark-100">
+                                        <th className="px-5 py-2"></th>
+                                        <th className="px-4 py-2"></th>
+                                        {priceLists.map(pl => (
+                                            <React.Fragment key={pl.id}>
+                                                <th className="px-3 py-2 text-center text-[10px] text-bark-400 font-semibold">Satış (₺)</th>
+                                                <th className="px-3 py-2 text-center text-[10px] text-bark-400 font-semibold">Marj %</th>
+                                            </React.Fragment>
+                                        ))}
+                                        <th className="px-4 py-2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-bark-100">
+                                    {profitRows.map(({ product: p, result: r, channels, releasedQty }) => (
+                                        <tr key={p.id} className="table-row-hover transition">
+                                            <td className="px-5 py-3">
+                                                <p className="font-semibold text-bark-800">{p.name}</p>
+                                                <p className="text-[11px] text-bark-400">{p.cpPerBox} kps × {p.mgPerCapsule}mg</p>
+                                            </td>
+                                            <td className="px-4 py-3 text-right font-mono font-semibold text-bark-700">{fmtTl(r.birimMaliyet)}</td>
+                                            {channels.map(ch => (
+                                                <React.Fragment key={ch.id}>
+                                                    <td className="px-3 py-3 text-center font-mono text-bark-700">{fmtTl(ch.sellTl)}</td>
+                                                    <td className="px-3 py-3 text-center">
+                                                        <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${ch.marginPct >= 40 ? 'bg-emerald-50 text-emerald-700' : ch.marginPct >= 25 ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-600'}`}>
+                                                            %{fmt(ch.marginPct, 1)}
+                                                        </span>
+                                                    </td>
+                                                </React.Fragment>
+                                            ))}
+                                            <td className="px-4 py-3 text-right font-mono text-bark-500">{releasedQty.toLocaleString()}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Kanal bazlı kar özeti */}
+                    <div className="grid grid-cols-4 gap-4 stagger">
+                        {priceLists.map((pl, i) => {
+                            const totalRevenue = profitRows.reduce((s, r) => s + r.channels[i].sellTl, 0);
+                            const totalCost = profitRows.reduce((s, r) => s + r.result.birimMaliyet, 0);
+                            const totalGross = totalRevenue - totalCost;
+                            const avgM = profitRows.length > 0 ? profitRows.reduce((s, r) => s + r.channels[i].marginPct, 0) / profitRows.length : 0;
+                            return (
+                                <div key={pl.id} className="glass-card p-5">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="w-2 h-2 rounded-full bg-sepe-500"></div>
+                                        <span className="text-xs font-bold text-bark-600 uppercase tracking-wider">{pl.name}</span>
+                                        <span className="ml-auto text-[10px] px-2 py-0.5 bg-sepe-50 border border-sepe-200 rounded-full text-sepe-700 font-bold">x{pl.margin}</span>
+                                    </div>
+                                    <p className="text-xs text-bark-400">Ort. Brüt Marj</p>
+                                    <p className="text-2xl font-bold text-bark-800 mt-0.5">%{fmt(avgM, 1)}</p>
+                                    <div className="mt-3 pt-3 border-t border-bark-100 space-y-1">
+                                        <div className="flex justify-between text-xs">
+                                            <span className="text-bark-400">Toplam Gelir</span>
+                                            <span className="font-mono font-semibold text-bark-700">{fmtTl(totalRevenue)}</span>
+                                        </div>
+                                        <div className="flex justify-between text-xs">
+                                            <span className="text-bark-400">Brüt Kâr</span>
+                                            <span className="font-mono font-semibold text-sepe-600">{fmtTl(totalGross)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // ÜRETİM PLANI (production-plan)
+        // ═══════════════════════════════════════════════════════
+        const ProductionPlan = () => {
+            // Haftalar (1-10) üzerinden Gantt
+            const weeks = Array.from({ length: 10 }, (_, i) => i + 1);
+            const statusConfig = {
+                completed:    { bg: 'bg-emerald-500', text: 'text-emerald-700', badge: 'bg-emerald-50 border-emerald-200', label: 'Tamamlandı' },
+                running:      { bg: 'bg-blue-500',    text: 'text-blue-700',    badge: 'bg-blue-50 border-blue-200',      label: 'Devam Ediyor' },
+                warning:      { bg: 'bg-amber-500',   text: 'text-amber-700',   badge: 'bg-amber-50 border-amber-200',    label: 'Uyarı' },
+                pending:      { bg: 'bg-bark-300',    text: 'text-bark-500',    badge: 'bg-bark-50 border-bark-200',      label: 'Bekliyor' },
+            };
+
+            const machines = [
+                { id: 1, name: "Kapsülleme Hattı-1", jobs: [
+                    { id: "B-2025-001", name: "Just 4 You Kompleks", start: 1, duration: 3, status: "completed", qty: 5000 },
+                    { id: "B-2025-002", name: "Just 4 You Kompleks", start: 6, duration: 2, status: "running", qty: 3000 },
+                ]},
+                { id: 2, name: "Kapsülleme Hattı-2", jobs: [
+                    { id: "B-2025-003", name: "Chitosan Extract", start: 2, duration: 2, status: "completed", qty: 2000 },
+                    { id: "B-2025-005", name: "Kolajen Beauty Complex", start: 5, duration: 2, status: "completed", qty: 1500 },
+                ]},
+                { id: 3, name: "QC Kontrol", jobs: [
+                    { id: "B-2025-004", name: "Vitamin C Plus — Karantina", start: 4, duration: 3, status: "warning", qty: 4000 },
+                ]},
+                { id: 4, name: "Paketleme", jobs: [
+                    { id: "B-2025-001P", name: "Just 4 You Paketleme", start: 5, duration: 1, status: "completed", qty: 5000 },
+                ]},
+                { id: 5, name: "Depo / Sevkiyat", jobs: [
+                    { id: "B-2025-003S", name: "Chitosan Sevkiyat", start: 5, duration: 1, status: "pending", qty: 2000 },
+                ]},
+            ];
+
+            // Özet istatistikler
+            const allJobs = machines.flatMap(m => m.jobs);
+            const completedJobs = allJobs.filter(j => j.status === 'completed').length;
+            const warningJobs = allJobs.filter(j => j.status === 'warning').length;
+            const runningJobs = allJobs.filter(j => j.status === 'running').length;
+
+            return (
+                <div className="space-y-6 animate-fadeIn">
+                    <div>
+                        <h2 className="text-2xl font-bold text-bark-950">Üretim Planı</h2>
+                        <p className="text-bark-500 text-sm mt-1">Haftalık Gantt çizelgesi — Ocak-Mart 2025</p>
+                    </div>
+
+                    {/* Durum KPI'lar */}
+                    <div className="grid grid-cols-4 gap-4 stagger">
+                        {[
+                            { label: "Tamamlanan", value: completedJobs, icon: "CheckCircle2", color: "emerald" },
+                            { label: "Devam Eden", value: runningJobs, icon: "Play", color: "blue" },
+                            { label: "Uyarı / Beklemede", value: warningJobs + allJobs.filter(j=>j.status==='pending').length, icon: "AlertTriangle", color: "amber" },
+                            { label: "Toplam Parti", value: batchRecords.length, icon: "Layers", color: "sepe" },
+                        ].map((kpi, i) => {
+                            const cMap = { emerald: 'text-emerald-600 bg-emerald-50', blue: 'text-blue-600 bg-blue-50', amber: 'text-amber-600 bg-amber-50', sepe: 'text-sepe-600 bg-sepe-50' };
+                            return (
+                                <div key={i} className="glass-card p-5 flex items-center gap-4 animate-fadeIn">
+                                    <div className={`p-3 rounded-xl ${cMap[kpi.color]}`}>
+                                        <Icon name={kpi.icon} size={22} className={cMap[kpi.color].split(' ')[0]} />
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold text-bark-800">{kpi.value}</p>
+                                        <p className="text-xs text-bark-400">{kpi.label}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Gantt Chart */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="px-6 py-4 border-b border-bark-100 flex items-center gap-2">
+                            <Icon name="CalendarClock" size={16} className="text-sepe-500" />
+                            <h3 className="font-bold text-bark-800">Üretim Çizelgesi — Haftalık Görünüm</h3>
+                            <div className="ml-auto flex gap-3">
+                                {Object.entries(statusConfig).map(([k, v]) => (
+                                    <div key={k} className="flex items-center gap-1.5">
+                                        <div className={`w-3 h-3 rounded-sm ${v.bg}`}></div>
+                                        <span className="text-[11px] text-bark-400">{v.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <div style={{ minWidth: '700px' }}>
+                                {/* Header: Haftalar */}
+                                <div className="flex border-b border-bark-100 bg-bark-50/50">
+                                    <div className="w-44 shrink-0 px-4 py-2 text-xs font-bold text-bark-500 uppercase tracking-wider">Hat / Makine</div>
+                                    {weeks.map(w => (
+                                        <div key={w} className="flex-1 text-center text-[11px] font-semibold text-bark-400 py-2 border-l border-bark-100">H{w}</div>
+                                    ))}
+                                </div>
+                                {/* Rows */}
+                                {machines.map(machine => (
+                                    <div key={machine.id} className="flex border-b border-bark-100 hover:bg-bark-50/30 transition" style={{ minHeight: '52px' }}>
+                                        <div className="w-44 shrink-0 px-4 py-3 flex items-center">
+                                            <div>
+                                                <p className="text-[12px] font-semibold text-bark-700 leading-tight">{machine.name}</p>
+                                                <p className="text-[10px] text-bark-400">{machine.jobs.length} iş</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 relative flex items-center">
+                                            {/* Week grid lines */}
+                                            <div className="absolute inset-0 flex">
+                                                {weeks.map(w => (
+                                                    <div key={w} className="flex-1 border-l border-bark-100/60"></div>
+                                                ))}
+                                            </div>
+                                            {/* Jobs */}
+                                            {machine.jobs.map(job => {
+                                                const sc = statusConfig[job.status] || statusConfig.pending;
+                                                const leftPct = ((job.start - 1) / weeks.length) * 100;
+                                                const widthPct = (job.duration / weeks.length) * 100;
+                                                return (
+                                                    <div
+                                                        key={job.id}
+                                                        className="absolute h-8 rounded-lg flex items-center px-2 gap-1.5 cursor-default group"
+                                                        style={{ left: `${leftPct}%`, width: `${widthPct}%` }}
+                                                        title={`${job.name} — ${job.qty.toLocaleString()} adet`}
+                                                    >
+                                                        <div className={`absolute inset-0 rounded-lg ${sc.bg} opacity-20`}></div>
+                                                        <div className={`relative w-2 h-2 rounded-full ${sc.bg} shrink-0`}></div>
+                                                        <span className={`relative text-[11px] font-semibold ${sc.text} truncate`}>{job.name}</span>
+                                                        <span className="relative text-[10px] text-bark-400 shrink-0 ml-auto">{job.qty >= 1000 ? (job.qty/1000).toFixed(1)+'K' : job.qty}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Parti Detayları */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="px-6 py-4 border-b border-bark-100 flex items-center gap-2">
+                            <Icon name="Layers" size={16} className="text-blue-500" />
+                            <h3 className="font-bold text-bark-800">Aktif Parti Listesi</h3>
+                        </div>
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-bark-50/80 border-b border-bark-200">
+                                    {['Parti No', 'Ürün', 'Miktar', 'Üretim Tarihi', 'SKT', 'Durum', 'QC'].map(h => (
+                                        <th key={h} className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-bark-100">
+                                {batchRecords.map(b => {
+                                    const prod = products.find(p => p.id === b.productId);
+                                    const st = { released: 'bg-emerald-50 text-emerald-700 border-emerald-200', in_production: 'bg-blue-50 text-blue-700 border-blue-200', quarantine: 'bg-amber-50 text-amber-700 border-amber-200' };
+                                    const qc = { passed: 'text-emerald-600', pending: 'text-bark-400', testing: 'text-amber-600' };
+                                    return (
+                                        <tr key={b.id} className="table-row-hover transition">
+                                            <td className="px-5 py-3 font-mono font-semibold text-bark-700">{b.id}</td>
+                                            <td className="px-5 py-3 font-semibold text-bark-800">{prod?.name}</td>
+                                            <td className="px-5 py-3 font-mono text-bark-600">{b.qty.toLocaleString()}</td>
+                                            <td className="px-5 py-3 text-bark-500">{b.date}</td>
+                                            <td className="px-5 py-3 text-bark-500">{b.expiry}</td>
+                                            <td className="px-5 py-3">
+                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${st[b.status] || 'bg-bark-100 text-bark-600 border-bark-200'}`}>
+                                                    {b.status === 'released' ? 'Serbest' : b.status === 'in_production' ? 'Üretimde' : 'Karantina'}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-3">
+                                                <span className={`text-xs font-semibold ${qc[b.qcStatus] || 'text-bark-400'}`}>
+                                                    {b.qcStatus === 'passed' ? 'Geçti' : b.qcStatus === 'pending' ? 'Beklemede' : 'Test'}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // NETSYS ENTEGRASYON (netsys-sync)
+        // ═══════════════════════════════════════════════════════
+        const NetsysSync = () => {
+            const [syncing, setSyncing] = useState(false);
+            const [lastSync, setLastSync] = useState('2025-02-12 09:30');
+            const [syncLog, setSyncLog] = useState([
+                { time: '2025-02-12 09:30', type: 'success', msg: '15 hammadde stok bilgisi güncellendi.' },
+                { time: '2025-02-11 16:00', type: 'success', msg: '3 yeni satın alma siparişi Netsys\'e gönderildi.' },
+                { time: '2025-02-10 10:15', type: 'warning', msg: 'RM-TURUNC-EKSTRESI stok seviyesi eşiğin altında.' },
+                { time: '2025-02-09 09:00', type: 'error',   msg: 'Bağlantı zaman aşımı — RM-CHITOSAN güncellenemedi.' },
+            ]);
+
+            // Düşük stoklu malzemeler
+            const lowStock = rawMaterials.filter(r => r.currentStock !== undefined && r.currentStock < r.reorderPoint);
+            // Sipariş gerektiren malzemeler
+            const orderNeeded = rawMaterials.filter(r => r.currentStock !== undefined && r.currentStock <= r.reorderPoint);
+
+            const handleSync = () => {
+                setSyncing(true);
+                setTimeout(() => {
+                    setSyncing(false);
+                    const now = new Date().toLocaleString('tr-TR', { hour12: false }).replace(',', '');
+                    setLastSync(now);
+                    setSyncLog(prev => [
+                        { time: now, type: 'success', msg: `${rawMaterials.length} hammadde kaydı Netsys ile senkronize edildi.` },
+                        ...prev.slice(0, 6)
+                    ]);
+                }, 2000);
+            };
+
+            const logColors = { success: 'text-emerald-600 bg-emerald-50', warning: 'text-amber-600 bg-amber-50', error: 'text-red-500 bg-red-50' };
+            const logIcons = { success: 'CheckCircle2', warning: 'AlertTriangle', error: 'XCircle' };
+
+            return (
+                <div className="space-y-6 animate-fadeIn">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-bark-950">Netsys Entegrasyon</h2>
+                            <p className="text-bark-500 text-sm mt-1">ERP stok ve satın alma senkronizasyonu</p>
+                        </div>
+                        <button
+                            onClick={handleSync}
+                            disabled={syncing}
+                            className="flex items-center gap-2 px-5 py-2.5 bg-sepe-600 hover:bg-sepe-700 text-white rounded-xl font-semibold text-sm shadow-lg shadow-sepe-200 transition-all active:scale-[0.98] disabled:opacity-60"
+                        >
+                            <Icon name={syncing ? "Loader" : "RefreshCw"} size={16} className={`text-white ${syncing ? 'animate-spin' : ''}`} />
+                            {syncing ? 'Senkronize ediliyor...' : 'Şimdi Senkronize Et'}
+                        </button>
+                    </div>
+
+                    {/* Bağlantı Durumu */}
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="glass-card p-5 flex items-center gap-4">
+                            <div className="p-3 rounded-xl bg-emerald-50">
+                                <Icon name="Wifi" size={22} className="text-emerald-500" />
+                            </div>
+                            <div>
+                                <p className="text-xs text-bark-400 font-semibold uppercase tracking-wider">Netsys ERP</p>
+                                <div className="flex items-center gap-2 mt-0.5">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                    <span className="text-sm font-bold text-emerald-700">Bağlı (Mock)</span>
+                                </div>
+                                <p className="text-[11px] text-bark-400 mt-0.5">netsys.sepenatural.local:8080</p>
+                            </div>
+                        </div>
+                        <div className="glass-card p-5 flex items-center gap-4">
+                            <div className="p-3 rounded-xl bg-blue-50">
+                                <Icon name="Database" size={22} className="text-blue-500" />
+                            </div>
+                            <div>
+                                <p className="text-xs text-bark-400 font-semibold uppercase tracking-wider">Son Senkronizasyon</p>
+                                <p className="text-sm font-bold text-bark-800 mt-0.5">{lastSync}</p>
+                                <p className="text-[11px] text-bark-400 mt-0.5">{rawMaterials.length} kayıt</p>
+                            </div>
+                        </div>
+                        <div className="glass-card p-5 flex items-center gap-4">
+                            <div className={`p-3 rounded-xl ${lowStock.length > 0 ? 'bg-amber-50' : 'bg-emerald-50'}`}>
+                                <Icon name={lowStock.length > 0 ? 'AlertTriangle' : 'ShieldCheck'} size={22} className={lowStock.length > 0 ? 'text-amber-500' : 'text-emerald-500'} />
+                            </div>
+                            <div>
+                                <p className="text-xs text-bark-400 font-semibold uppercase tracking-wider">Stok Uyarıları</p>
+                                <p className={`text-2xl font-bold mt-0.5 ${lowStock.length > 0 ? 'text-amber-600' : 'text-emerald-600'}`}>{lowStock.length}</p>
+                                <p className="text-[11px] text-bark-400 mt-0.5">eşik altı malzeme</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Düşük Stok Uyarıları */}
+                    {orderNeeded.length > 0 && (
+                        <div className="glass-card overflow-hidden border border-amber-200">
+                            <div className="px-6 py-4 bg-amber-50/60 border-b border-amber-200 flex items-center gap-2">
+                                <Icon name="AlertTriangle" size={16} className="text-amber-500" />
+                                <h3 className="font-bold text-amber-800">Sipariş Gerekli — {orderNeeded.length} Malzeme</h3>
+                            </div>
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="bg-amber-50/30 border-b border-amber-100">
+                                        {['Malzeme', 'Mevcut Stok', 'Sipariş Eşiği', 'Teslim Süresi', 'Min. Sipariş', 'Tedarikçi', 'Önerilen Eylem'].map(h => (
+                                            <th key={h} className="px-5 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-bark-100">
+                                    {orderNeeded.map(rm => {
+                                        const isBelow = rm.currentStock < rm.reorderPoint;
+                                        return (
+                                            <tr key={rm.id} className="table-row-hover transition">
+                                                <td className="px-5 py-3">
+                                                    <p className="font-semibold text-bark-800">{rm.name}</p>
+                                                    <p className="text-[11px] text-bark-400 font-mono">{rm.id}</p>
+                                                </td>
+                                                <td className="px-5 py-3">
+                                                    <span className={`font-mono font-bold ${isBelow ? 'text-red-600' : 'text-amber-600'}`}>
+                                                        {rm.currentStock.toLocaleString()} {rm.unit}
+                                                    </span>
+                                                </td>
+                                                <td className="px-5 py-3 font-mono text-bark-500">{rm.reorderPoint.toLocaleString()} {rm.unit}</td>
+                                                <td className="px-5 py-3 text-bark-500">{rm.leadTime} gün</td>
+                                                <td className="px-5 py-3 font-mono text-bark-500">{rm.minOrder.toLocaleString()} {rm.unit}</td>
+                                                <td className="px-5 py-3 text-bark-500 text-xs">{rm.supplier}</td>
+                                                <td className="px-5 py-3">
+                                                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${isBelow ? 'bg-red-50 text-red-700 border-red-200' : 'bg-amber-50 text-amber-700 border-amber-200'}`}>
+                                                        {isBelow ? 'ACİL Sipariş Ver' : 'Sipariş Planla'}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
+                    {/* Tüm Malzeme Stok Durumu */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="px-6 py-4 border-b border-bark-100 flex items-center gap-2">
+                            <Icon name="Package" size={16} className="text-sepe-500" />
+                            <h3 className="font-bold text-bark-800">Hammadde Stok Durumu</h3>
+                        </div>
+                        <table className="w-full text-sm">
+                            <thead>
+                                <tr className="bg-bark-50/80 border-b border-bark-200">
+                                    {['Malzeme', 'Kategori', 'Mevcut Stok', 'Sipariş Eşiği', 'Durum', 'Fiyat (USD)', 'Tedarikçi'].map(h => (
+                                        <th key={h} className="px-4 py-3 text-left text-xs font-bold text-bark-500 uppercase tracking-wider">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-bark-100">
+                                {rawMaterials.map(rm => {
+                                    const below = rm.currentStock !== undefined && rm.currentStock < rm.reorderPoint;
+                                    const atEdge = rm.currentStock !== undefined && rm.currentStock >= rm.reorderPoint && rm.currentStock <= rm.reorderPoint * 1.3;
+                                    const statusEl = below
+                                        ? <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-50 text-red-600 border border-red-200">Kritik</span>
+                                        : atEdge
+                                            ? <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-200">Düşük</span>
+                                            : <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">Normal</span>;
+                                    return (
+                                        <tr key={rm.id} className="table-row-hover transition">
+                                            <td className="px-4 py-3 font-semibold text-bark-800">{rm.name}</td>
+                                            <td className="px-4 py-3">
+                                                <span className="px-2 py-0.5 bg-bark-100 border border-bark-200 rounded-full text-[10px] font-bold text-bark-600">{rm.category}</span>
+                                            </td>
+                                            <td className="px-4 py-3 font-mono font-semibold text-bark-700">{rm.currentStock !== undefined ? `${rm.currentStock.toLocaleString()} ${rm.unit}` : '—'}</td>
+                                            <td className="px-4 py-3 font-mono text-bark-400">{rm.reorderPoint !== undefined ? `${rm.reorderPoint.toLocaleString()} ${rm.unit}` : '—'}</td>
+                                            <td className="px-4 py-3">{statusEl}</td>
+                                            <td className="px-4 py-3 font-mono text-bark-700">${fmt(rm.priceUsd)}</td>
+                                            <td className="px-4 py-3 text-bark-400 text-xs">{rm.supplier}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Senkronizasyon Logu */}
+                    <div className="glass-card overflow-hidden">
+                        <div className="px-6 py-4 border-b border-bark-100 flex items-center gap-2">
+                            <Icon name="Activity" size={16} className="text-bark-400" />
+                            <h3 className="font-bold text-bark-800">Senkronizasyon Geçmişi</h3>
+                        </div>
+                        <div className="divide-y divide-bark-100">
+                            {syncLog.map((log, i) => (
+                                <div key={i} className="flex items-start gap-4 px-6 py-3 hover:bg-bark-50/50 transition">
+                                    <div className={`p-1.5 rounded-lg mt-0.5 ${logColors[log.type]}`}>
+                                        <Icon name={logIcons[log.type]} size={14} className={logColors[log.type].split(' ')[0]} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-sm text-bark-700">{log.msg}</p>
+                                        <p className="text-[11px] text-bark-400 mt-0.5 font-mono">{log.time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // API CONFIG
+        // ═══════════════════════════════════════════════════════
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:8000'
+            : '';
+
+        async function apiRag(query, context = {}) {
+            const resp = await fetch(`${API_BASE}/brain/rag/analyze`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Tenant-ID': 'sepenatural' },
+                body: JSON.stringify({ query, context }),
+            });
+            if (!resp.ok) throw new Error(`API ${resp.status}`);
+            const data = await resp.json();
+            return data.response;
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // AI CHAT
+        // ═══════════════════════════════════════════════════════
+        const AIChat = () => {
+            const [messages, setMessages] = useState([
+                { role: 'ai', text: 'Merhaba! Sepenatural üretim verileri hakkında sorularınızı yanıtlayabilirim. Maliyet analizi, hammadde stokları, reçete bilgileri gibi konularda yardımcı olabilirim.' }
+            ]);
+            const [input, setInput] = useState('');
+            const [loading, setLoading] = useState(false);
+            const chatRef = useRef(null);
+
+            const handleSend = async () => {
+                if (!input.trim() || loading) return;
+                const userMsg = input.trim();
+                setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+                setInput('');
+                setLoading(true);
+
+                // Bağlam olarak frontend verisini de gönder
+                const context = {
+                    products_count: products.length,
+                    active_products: products.filter(p => p.status === 'active').length,
+                    raw_materials_count: rawMaterials.length,
+                    batches_count: batchRecords.length,
+                    released_batches: batchRecords.filter(b => b.status === 'released').length,
+                    product_names: products.map(p => p.name),
+                };
+
+                try {
+                    const response = await apiRag(userMsg, context);
+                    setMessages(prev => [...prev, { role: 'ai', text: response }]);
+                } catch (err) {
+                    // API erişilemezse local fallback
+                    let response = 'AI servisi şu an erişilemiyor. Yerel verilerden yanıt veriyorum.';
+                    const q = userMsg.toLowerCase();
+                    if (q.includes('maliyet') || q.includes('fiyat')) {
+                        response = `📊 Just 4 You Kompleks ürününün 1 kg karışım maliyeti yaklaşık $59.75 (₺2.629). Detaylı analiz için Maliyet Motoru modülünü kullanabilirsiniz.`;
+                    } else if (q.includes('stok') || q.includes('hammadde')) {
+                        response = `🌿 Sistemde ${rawMaterials.length} adet hammadde tanımlıdır. Ekstre kategorisinde ${rawMaterials.filter(r => r.category === 'EKSTRE').length} çeşit bulunmaktadır.`;
+                    } else if (q.includes('ürün') || q.includes('reçete')) {
+                        response = `💊 Sistemde ${products.length} ürün tanımlıdır, ${products.filter(p => p.status === 'active').length} tanesi aktiftir.`;
+                    } else if (q.includes('parti') || q.includes('batch')) {
+                        response = `📦 Toplam ${batchRecords.length} parti mevcut. ${batchRecords.filter(b => b.status === 'released').length} tanesi serbest bırakılmış.`;
+                    }
+                    setMessages(prev => [...prev, { role: 'ai', text: response }]);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            useEffect(() => {
+                if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+            }, [messages]);
+
+            return (
+                <div className="h-[calc(100vh-120px)] flex flex-col animate-fadeIn">
+                    <div className="mb-4">
+                        <h2 className="text-2xl font-bold text-bark-950">AI Asistan</h2>
+                        <p className="text-bark-500 text-sm mt-1">Üretim verileri hakkında soru sorun</p>
+                    </div>
+
+                    <div ref={chatRef} className="flex-1 glass-card p-6 overflow-y-auto space-y-4 mb-4">
+                        {messages.map((msg, i) => (
+                            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
+                                <div className={`max-w-[70%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                                    ? 'bg-sepe-600 text-white rounded-br-md'
+                                    : 'bg-bark-100 text-bark-800 rounded-bl-md border border-bark-200'}`}>
+                                    {msg.text}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex gap-3">
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            onKeyDown={e => e.key === 'Enter' && handleSend()}
+                            placeholder="Sorunuzu yazın..."
+                            disabled={loading}
+                            className="flex-1 px-4 py-3 bg-white border border-bark-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sepe-400 transition disabled:opacity-50"
+                        />
+                        <button onClick={handleSend} disabled={loading} className="px-5 py-3 bg-sepe-600 hover:bg-sepe-700 text-white rounded-xl font-semibold text-sm shadow-lg shadow-sepe-200 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed">
+                            {loading ? <Icon name="Loader" size={18} className="text-white animate-spin" /> : <Icon name="Send" size={18} className="text-white" />}
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // MAIN APP
+        // ═══════════════════════════════════════════════════════
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('dashboard');
+
+            const renderContent = () => {
+                switch (activeTab) {
+                    case 'dashboard': return <Dashboard />;
+                    case 'products': return <ProductsModule />;
+                    case 'cost-engine': return <CostEngine />;
+                    case 'cost-table': return <CostTable />;
+                    case 'batches': return <BatchManagement />;
+                    case 'materials': return <MaterialsModule />;
+                    case 'price-lists': return <PriceListsModule />;
+                    case 'ai-chat': return <AIChat />;
+                    case 'production-plan': return <ProductionPlan />;
+                    case 'netsys-sync': return <NetsysSync />;
+                    case 'profitability': return <ProfitabilityModule />;
+                    default: return <Dashboard />;
+                }
+            };
+
+            return (
+                <div className="flex min-h-screen">
+                    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+                    <main className="ml-[260px] flex-1 p-6 overflow-y-auto h-screen">
+                        {/* Top bar */}
+                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-bark-200/60">
+                            <div className="flex items-center gap-3">
+                                <div className="w-2 h-2 rounded-full bg-sepe-500 animate-pulse"></div>
+                                <span className="text-xs font-semibold text-bark-400 uppercase tracking-wider">Sepenatural ERP — Canlı</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <span className="text-xs text-bark-400 font-mono">USD/TRY: {USD_KUR_DEFAULT}</span>
+                                <div className="w-8 h-8 rounded-full bg-sepe-100 border border-sepe-200 flex items-center justify-center">
+                                    <Icon name="Bell" size={14} className="text-sepe-600" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {renderContent()}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

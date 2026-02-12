@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(git --version)",
+      "Bash(node --version:*)",
+      "Bash(npm --version:*)",
+      "Bash(docker:*)",
+      "Bash(py:*)",
+      "Bash(curl:*)",
+      "Bash(cmd.exe /c \"dir C:\\\\Users\\\\PC\\\\.gemini\\\\antigravity\\\\scratch\\\\PP\\\\.claude\\\\worktrees\"\")",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: scraper entegrasyonu, Product domain modeli, SQLite connector\n\n- Sepenatural web scraper \\(sitemap → BeautifulSoup → SQLite\\)\n- SQLiteConnector ile gerçek ürün verisi ingestion\n- Product/Ingredient domain modelleri eklendi\n- SepenaturalMapper: scraper çıktısını domain''e map eder\n- API Gateway: /products/sepenatural endpoint\n- Ingestion: /ingest/sepenatural/products endpoint\n- Tenant ID validation güçlendirildi \\(hyphen/underscore izin\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
